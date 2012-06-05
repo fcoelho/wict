@@ -20,4 +20,5 @@ urlpatterns = patterns('',
 	url(r'^submission/$', 'wict.views.submission'),
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^accounts/', include('wictsite.auth_urls')),
+	url(r'^accounts/', include('profiles.urls')),
 )

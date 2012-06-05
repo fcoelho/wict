@@ -2,13 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-# Create your models here.
+class UserProfile(models.Model):
+	user = models.ForeignKey(User, unique=True)
 
-#class WictUserProfile(UserenaBaseProfile):
-#	user = models.OneToOneField(
-#		User,
-#		unique=True,
-#		verbose_name=_('user'),
-#		related_name='my_profile'
-#	)
+	full_name = models.CharField(max_length=100)
+	is_reviewer = models.BooleanField()
 
+	def get_absolute_url(self):
+		return ('profiles_profile_detail', (), {'username': self.user.username})
+	get_absolute_url = models.permalink(get_absolute_url)

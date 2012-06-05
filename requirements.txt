@@ -1,4 +1,5 @@
 Django==1.4
+django-profiles==0.2
 django-registration==0.8-alpha-1
 django-sendfile==0.3.0
 wsgiref==0.1.2
