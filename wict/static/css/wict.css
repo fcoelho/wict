@@ -1,0 +1,32 @@
+#login-bar {
+	background-color: #FF0;
+}
+#login-bar ul {
+	list-style-type: none;
+	text-align: center;
+}
+#login-bar ul li {
+	display: inline;
+	margin-left: 10px;
+	margin-right: 10px;
+	background-color: #F00;
+}
+#banner-wict {
+	background-color: #F0F;
+}
+#main-nav {
+	background-color: #0FF;
+}
+#main-nav li {
+	text-align: center;
+}
+#content {
+	background-color: #0F0;
+}
+#promotion {
+	text-align: center;
+}
+#promotion img {
+	margin-left: 0px;
+	margin-right: 0px;
+}

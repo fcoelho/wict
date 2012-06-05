@@ -1,0 +1,1 @@
+Ativar conta do site maneiro: {{site}} | {{expiration_days}} dias!!
