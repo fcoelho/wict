@@ -2,6 +2,7 @@
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotFound, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 
 from sendfile import sendfile
 
@@ -17,3 +18,13 @@ def articles(request):
 		RequestContext(request)
 	)
 
+def registration(request):
+	return HttpResponse('registration')
+
+@login_required
+def submission(request):
+	return HttpResponse('submission')
+
+@login_required
+def review(request):
+	return HttpResponse('review')

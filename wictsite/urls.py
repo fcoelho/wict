@@ -13,8 +13,11 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
 	url(r'^$', 'wict.views.index'),
 	url(r'^articles/$', 'wict.views.articles'),
+	url(r'^registration/$', 'wict.views.registration'),
+	url(r'^review/$', 'wict.views.review'),
+	url(r'^submission/$', 'wict.views.submission'),
+    url(r'^admin/', include(admin.site.urls)),
 	url(r'^accounts/', include('wictsite.auth_urls')),
 )
