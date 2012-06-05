@@ -1,10 +1,9 @@
-<html>
-	<head>
-		<title>Logout</title>
-	</head>
-	<body>
-		<p>title : {{title}}</p>
-		<p>site : {{site}}</p>
-		<p>site_name : {{site_name}}</p>
-	</body>
-</html>
+{% extends "wict/index.html" %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+	<p>title : {{title}}</p>
+	<p>site : {{site}}</p>
+	<p>site_name : {{site_name}}</p>
+{% endblock %}
