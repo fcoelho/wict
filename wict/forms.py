@@ -10,8 +10,8 @@ class WictRegistrationForm(RegistrationForm):
 		label='Nome completo'
 	)
 
-	def __init__(self):
-		RegistrationForm.__init__(self)
+	def __init__(self, *args, **kwargs):
+		RegistrationForm.__init__(self, *args, **kwargs)
 		self.fields.keyOrder = [
 			'full_name',
 			'username',
