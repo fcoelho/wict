@@ -3,8 +3,8 @@
 {% block title %}Perfis{% endblock %}
 
 {% block content %}
-	<p>Começo</p>
-	{% for obj in object_list %}
-		<p>{{obj}}</p>
+	<h1>Perfis</h1>
+	{% for profile in object_list %}
+		<a href="{% url profiles_profile_detail profile.user.username %}">{{profile.full_name}}</a>
 	{% endfor %}
 {% endblock %}

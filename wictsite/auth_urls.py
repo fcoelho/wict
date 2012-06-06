@@ -24,6 +24,7 @@ from django.views.generic.simple import direct_to_template
 from registration.views import activate
 from registration.views import register
 
+from wict.forms import WictRegistrationForm
 
 urlpatterns = patterns('',
 	url(r'^activate/complete/$',
@@ -42,7 +43,10 @@ urlpatterns = patterns('',
 	),
 	url(r'^register/$',
 		register,
-		{'backend': 'registration.backends.default.DefaultBackend'},
+		{
+			'backend': 'registration.backends.default.DefaultBackend',
+			'form_class': WictRegistrationForm
+		},
 		name='registration_register'
 	),
 	url(r'^register/complete/$',
