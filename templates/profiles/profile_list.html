@@ -1,0 +1,10 @@
+{% extends "wict/index.html" %}
+
+{% block title %}Perfis{% endblock %}
+
+{% block content %}
+	<p>Começo</p>
+	{% for obj in object_list %}
+		<p>{{obj}}</p>
+	{% endfor %}
+{% endblock %}
