@@ -59,5 +59,5 @@ urlpatterns = patterns('',
 		{'template': 'registration/registration_closed.html'},
 		name='registration_disallowed'
 	),
-	(r'', include('registration.auth_urls')),
+	(r'', include('wictsite.django_auth_urls')),
 )
