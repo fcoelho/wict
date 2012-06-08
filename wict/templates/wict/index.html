@@ -12,25 +12,28 @@
 		<title>WICT - {% block title %}Semcomp{% endblock %}</title>
 	</head>
 	<body>
-		<div id="login-bar" class="container_12 clearfix">
-			<ul class="grid_3 push_9">
-				{% if user.is_authenticated %}
-					<li>Olá, {{user.username}}</li>
-					<li><a href="{% url auth_logout %}">Sair</a></li>
-				{% else %}
-					<li><a href="{% url auth_login %}">Login</a></li>
-					<li><a href="{% url registration_register %}">Criar conta</a></li>
-				{% endif %}
-			</ul>
-		</div>
-		<div id="banner-wict" class="container_12 clearfix">
-			<div class="grid_10">
-				<h1>VI Workshop de Iniciação Científica e Tecnológica</h1>
-				<p>xx de setembro de 2012</p>
-				<p>Instituto de Ciências Matemáticas e de Computação - ICMC</p>
-				<p>USP São Carlos</p>
+		<div id="banner-wict">
+			<div class="container_12">
+				<ul id="login-bar" class="grid_3 push_9">
+					{% if user.is_authenticated %}
+						<li>Olá, {{user.username}}</li>
+						<li><a href="{% url auth_logout %}">Sair</a></li>
+					{% else %}
+						<li><a href="{% url auth_login %}">Login</a></li>
+						<li><a href="{% url registration_register %}">Criar conta</a></li>
+					{% endif %}
+				</ul>
+				<br class="clearfix"/>
+				<div id="banner-text">
+					<img class="grid_2 alpha" src="{{STATIC_URL}}img/logo_wict.png"/>
+					<div class="grid_10 omega">
+						<h1>VI Workshop de Iniciação Científica e Tecnológica</h1>
+						<p>xx de setembro de 2012</p>
+						<p>Instituto de Ciências Matemáticas e de Computação - ICMC</p>
+						<p>USP São Carlos</p>
+					</div>
+				</div>
 			</div>
-			<img class="grid_2" src="{{STATIC_URL}}img/logo_wict.png"/>
 		</div>
 		<div id="main-nav" class="container_12 clearfix">
 			<ul>

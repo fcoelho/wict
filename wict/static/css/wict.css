@@ -1,27 +1,49 @@
-#login-bar {
-	background-color: #FF0;
+html {
+	background-image: url(/static/img/background.png);
 }
-#login-bar ul {
+
+#login-bar {
+	/*background-color: #FF0;*/
+}
+#login-bar {
 	list-style-type: none;
 	text-align: center;
+	border-left: 1px solid #777777;
+	border-right: 1px solid #777777;
+	border-bottom: 1px solid #777777;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	background-color: #222222;
 }
-#login-bar ul li {
+#login-bar li {
 	display: inline;
 	margin-left: 10px;
 	margin-right: 10px;
-	background-color: #F00;
+}
+#login-bar li a {
+	color: #FFF;
+	text-decoration: none;
+	font-weight: bold;
 }
 #banner-wict {
-	background-color: #F0F;
+	/*background-color: #F0F;*/
+	/*background-image: url(/static/img/pattern_25.gif);*/
+	background-image: url(/static/img/banner-background.gif);
+	background-repeat: repeat-x;
+	min-width: 100%;
+}
+#banner-text h1, #banner-text p {
+	float: right;
+	clear: both;
 }
 #main-nav {
-	background-color: #0FF;
+	/*background-color: #0FF;*/
 }
 #main-nav li {
 	text-align: center;
 }
 #content {
-	background-color: #0F0;
+	/*background-color: #0F0;*/
 }
 #promotion {
 	text-align: center;
@@ -62,4 +84,11 @@
 }
 .help-text {
 	color: #AAAAAA;
+}
+.wrap {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: auto;
+	width: 940px;
 }
