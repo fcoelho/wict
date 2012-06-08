@@ -1,10 +1,6 @@
 html {
 	background-image: url(/static/img/background.png);
 }
-
-#login-bar {
-	/*background-color: #FF0;*/
-}
 #login-bar {
 	list-style-type: none;
 	text-align: center;
@@ -19,6 +15,7 @@ html {
 	display: inline;
 	margin-left: 10px;
 	margin-right: 10px;
+	color: #FFF;
 }
 #login-bar li a {
 	color: #FFF;
@@ -26,10 +23,8 @@ html {
 	font-weight: bold;
 }
 #banner-wict {
-	/*background-color: #F0F;*/
-	/*background-image: url(/static/img/pattern_25.gif);*/
-	background-image: url(/static/img/banner-background.gif);
-	background-repeat: repeat-x;
+	background-image: url(/static/img/banner-background.png);
+	background-repeat: repeat;
 	min-width: 100%;
 }
 #banner-text h1, #banner-text p {
@@ -41,6 +36,24 @@ html {
 }
 #main-nav li {
 	text-align: center;
+	list-style-type: none;
+	margin: auto 0;
+}
+
+#main-nav a:hover {
+	box-shadow: 0 0 5px 5px #888;
+}
+#main-nav li a {
+	color: #EEEEEE;
+	text-decoration: none;
+	background-color: #222222;
+	border: 1px solid #777777;
+	border-radius: 4px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 9px;
+	margin-right: 9px;
+	font-size: large;
 }
 #content {
 	/*background-color: #0F0;*/

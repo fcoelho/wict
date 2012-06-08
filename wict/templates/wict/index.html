@@ -37,16 +37,16 @@
 		</div>
 		<div id="main-nav" class="container_12 clearfix">
 			<ul>
-				<li class="grid_4"><a href="/">Home</a></li>
-				<li class="grid_4"><a href="/articles/">Trabalhos</a></li>
+				<li><a class="grid_4" href="/">Home</a></li>
+				<li><a class="grid_4" href="/articles/">Trabalhos</a></li>
 				{% if user.is_authenticated %}
 					{% if user.get_profile.is_reviewer %}
-						<li class="grid_4"><a href="/review/">Revisão</a></li>
+						<li><a class="grid_4" href="/review/">Revisão</a></li>
 					{% else %}
-						<li class="grid_4"><a href="/submission/">Submissão</a></li>
+						<li><a class="grid_4" href="/submission/">Submissão</a></li>
 					{% endif %}
 				{% else %}
-					<li class="grid_4"><a href="/registration/">Inscrição</a></li>
+					<li><a class="grid_4" href="/registration/">Inscrição</a></li>
 				{% endif %}
 			</ul>
 		</div>
