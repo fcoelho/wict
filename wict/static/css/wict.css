@@ -30,3 +30,36 @@
 	margin-left: 0px;
 	margin-right: 0px;
 }
+.form-row p {
+	display: block;
+	line-height: 2em;
+	margin-bottom: 0;
+}
+.form-row label {
+}
+.form-row input {
+	width: 100%;
+}
+.form-row span {
+	float: right;
+}
+.form-errors ul {
+	margin: 0;
+}
+.form-errors li {
+	list-style-type: none;
+	margin-left: 0;
+}
+.form-error {
+	border: 1px solid #FF8B8B;
+	color: #710000;
+	border-radius: 4px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background-color: #FFB7BF;
+}
+.help-text {
+	color: #AAAAAA;
+}
