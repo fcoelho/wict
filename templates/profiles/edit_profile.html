@@ -3,9 +3,12 @@
 {% block title %}Editar perfil{% endblock %}
 
 {% block content %}
-	<form action="." method="post">
-		{% csrf_token %}
-		{{form.as_p}}
-		<input type="submit"/>
-	</form>
+	<div class="grid_5 push_2">
+		<form action="." method="post">
+			{% csrf_token %}
+			{% load wict %}
+			{% wict_form form %}
+			<input type="submit"/>
+		</form>
+	</div>
 {% endblock %}

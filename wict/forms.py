@@ -3,6 +3,7 @@
 from django import forms
 from registration.forms import RegistrationForm
 
+
 class WictRegistrationForm(RegistrationForm):
 	full_name = forms.CharField(
 		max_length=100,
@@ -20,3 +21,8 @@ class WictRegistrationForm(RegistrationForm):
 			'password2'
 		]
 
+class WictProfileEditForm(forms.ModelForm):
+	class Meta:
+		from wict.models import UserProfile
+		model = UserProfile
+		exclude = ('user', 'is_reviewer')

@@ -19,6 +19,5 @@ urlpatterns = patterns('',
 	url(r'^review/$', 'wict.views.review'),
 	url(r'^submission/$', 'wict.views.submission'),
     url(r'^admin/', include(admin.site.urls)),
-	url(r'^accounts/', include('wictsite.auth_urls')),
-	url(r'^accounts/', include('profiles.urls')),
+	url(r'^accounts/', include('wictsite.extra_urls')),
 )

@@ -3,7 +3,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from wict.forms import WictRegistrationForm
 
 class UserProfile(models.Model):
 	user = models.ForeignKey(User, unique=True)
@@ -16,6 +15,7 @@ class UserProfile(models.Model):
 	get_absolute_url = models.permalink(get_absolute_url)
 
 
+from wict.forms import WictRegistrationForm
 def create_user_profile(sender, user, request, **kwargs):
 	form = WictRegistrationForm(request.POST)
 	profile = UserProfile(
