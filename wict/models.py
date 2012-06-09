@@ -40,6 +40,7 @@ class Article(models.Model):
 	title = models.CharField(max_length=255)
 	abstract = models.TextField()
 	topic = models.CharField(max_length=2, choices=TOPIC_CHOICES)
+	file = models.FileField(upload_to='articles')
 
 def create_user_profile(sender, user, request, **kwargs):
 	from wict.forms import WictRegistrationForm
