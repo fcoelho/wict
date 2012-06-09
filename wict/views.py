@@ -3,10 +3,13 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import login
+from django.core.exceptions import PermissionDenied
 
 from sendfile import sendfile
+
+from wict.decorators import require_reviewer, require_submitter
 
 def index(request):
 	return render_to_response(
@@ -23,13 +26,19 @@ def articles(request):
 def registration(request):
 	return HttpResponse('registration')
 
-@login_required
+@require_submitter
 def submission(request):
-	return HttpResponse('submission')
+	return render_to_response(
+		'wict/submission.html',
+		RequestContext(request)
+	)
 
-@login_required
+@require_reviewer
 def review(request):
-	return HttpResponse('review')
+	return render_to_response(
+		'wict/review.html',
+		RequestContext(request)
+	)
 
 #Não faz sentido alguém tentar fazer login sem logou antes,
 #então se a pessoa estiver logada, redireciona pra '/'
@@ -38,3 +47,4 @@ def wict_login(request, **kwargs):
 		return HttpResponseRedirect('/')
 	else:
 		return login(request, **kwargs)
+
