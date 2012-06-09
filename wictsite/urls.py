@@ -18,6 +18,8 @@ urlpatterns = patterns('',
 	url(r'^registration/$', 'wict.views.registration'),
 	url(r'^review/$', 'wict.views.review'),
 	url(r'^submission/$', 'wict.views.submission'),
+	url(r'^submission/new/$', 'wict.views.new_submission',
+	name='submission_new'),
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^accounts/', include('wictsite.extra_urls')),
 )

@@ -2,7 +2,7 @@
 
 from django import forms
 from registration.forms import RegistrationForm
-
+from wict.models import UserProfile, Article
 
 class WictRegistrationForm(RegistrationForm):
 	full_name = forms.CharField(
@@ -23,6 +23,10 @@ class WictRegistrationForm(RegistrationForm):
 
 class WictProfileEditForm(forms.ModelForm):
 	class Meta:
-		from wict.models import UserProfile
 		model = UserProfile
 		exclude = ('user', 'is_reviewer')
+
+class ArticleForm(forms.ModelForm):
+	class Meta:
+		model = Article
+		exclude = ('user',)

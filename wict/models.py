@@ -14,9 +14,35 @@ class UserProfile(models.Model):
 		return ('profiles_profile_detail', (), {'username': self.user.username})
 	get_absolute_url = models.permalink(get_absolute_url)
 
+class Author(models.Model):
+	article = models.ForeignKey('Article')
+	first_name = models.CharField(max_length=30)
+	last_name = models.CharField(max_length=30)
+	binding = models.CharField(max_length=30)
 
-from wict.forms import WictRegistrationForm
+class Article(models.Model):
+	TOPIC_CHOICES = (
+		('BD', 'Banco de dados'),
+		('CG', 'Computação gráfica'),
+		('PI', 'Processamento de imagens'),
+		('IA', 'Inteligência computacional'),
+		('MM', 'Sistemas web e multimídia interativos'),
+		('AC', 'Arquitetura de computadores'),
+		('ES', 'Engenharia de software'),
+		('SD', 'Sistemas distribuídos'),
+		('PC', 'Programação concorrente'),
+		('SE', 'Sistemas embarcados'),
+		('RB', 'Robótica'),
+		('XX', 'Outro')
+	)
+
+	user = models.ForeignKey(User)
+	title = models.CharField(max_length=255)
+	abstract = models.TextField()
+	topic = models.CharField(max_length=2, choices=TOPIC_CHOICES)
+
 def create_user_profile(sender, user, request, **kwargs):
+	from wict.forms import WictRegistrationForm
 	form = WictRegistrationForm(request.POST)
 	profile = UserProfile(
 		user=user,

@@ -1,0 +1,13 @@
+{% extends "wict/index.html" %}
+
+{% block title %}Novo artigo{% endblock %}
+
+{% block content %}
+	<form action="." method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% load wict %}
+		{% wict_form form %}
+		<input type="submit"/>
+	</form>
+{% endblock %}
+ 
