@@ -1,11 +1,12 @@
 #coding: utf-8
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import login
 from django.core.exceptions import PermissionDenied
+from django.conf import settings
 
 from sendfile import sendfile
 
@@ -14,16 +15,10 @@ from wict.models import Article
 from wict.forms import ArticleForm
 
 def index(request):
-	return render_to_response(
-		'wict/index.html',
-		RequestContext(request)
-	)
+	return render(request, 'wict/index.html')
 
 def articles(request):
-	return render_to_response(
-		'wict/articles.html',
-		context_instance=RequestContext(request)
-	)
+	return render(request, 'wict/articles.html')
 
 def registration(request):
 	return HttpResponse('registration')
@@ -48,16 +43,13 @@ def new_submission(request):
 
 @require_reviewer
 def review(request):
-	return render_to_response(
-		'wict/review.html',
-		RequestContext(request)
-	)
+	return render(request, 'wict/review.html')
 
-#Não faz sentido alguém tentar fazer login sem logou antes,
-#então se a pessoa estiver logada, redireciona pra '/'
+#Não faz sentido alguém tentar fazer login se já logou antes,
+#então se a pessoa estiver logada, redireciona pra outro lugar
 def wict_login(request, **kwargs):
 	if request.user.is_authenticated():
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
 	else:
 		return login(request, **kwargs)
 
