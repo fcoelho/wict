@@ -38,16 +38,16 @@
 		</div>
 		<div id="main-nav" class="container_12 clearfix">
 			<ul>
-				<li><a class="grid_4" href="/">Home</a></li>
-				<li><a class="grid_4" href="/articles/">Trabalhos</a></li>
+				<li><a class="grid_4{% if home_active %} active-menu{% endif %}" href="/">Home</a></li>
+				<li><a class="grid_4{% if articles_active %} active-menu{% endif %}" href="/articles/">Trabalhos</a></li>
 				{% if user.is_authenticated %}
 					{% if user.get_profile.is_reviewer %}
-						<li><a class="grid_4" href="/review/">Revisão</a></li>
+						<li><a class="grid_4{% if review_active %} active-menu{% endif %}" href="/review/">Revisão</a></li>
 					{% else %}
-						<li><a class="grid_4" href="/submission/">Submissão</a></li>
+						<li><a class="grid_4{% if submission_active %} active-menu{% endif %}" href="/submission/">Submissão</a></li>
 					{% endif %}
 				{% else %}
-					<li><a class="grid_4" href="/registration/">Inscrição</a></li>
+					<li><a class="grid_4{% if registration_active %} active-menu{% endif %}" href="/registration/">Inscrição</a></li>
 				{% endif %}
 			</ul>
 		</div>

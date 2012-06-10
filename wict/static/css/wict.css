@@ -55,6 +55,9 @@ html {
 	margin-right: 9px;
 	font-size: large;
 }
+#main-nav a.active-menu {
+	background-color: #444444;
+}
 #content {
 	/*background-color: #0F0;*/
 }
@@ -97,11 +100,4 @@ html {
 }
 .help-text {
 	color: #AAAAAA;
-}
-.wrap {
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: auto;
-	width: 940px;
 }
