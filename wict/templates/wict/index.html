@@ -13,7 +13,7 @@
 		<title>WICT - {% block title %}Semcomp{% endblock %}</title>
 	</head>
 	<body>
-		<div id="banner-wict">
+		<div class="full-width-background">
 			<div class="container_12">
 				<ul id="login-bar" class="grid_3 push_9">
 					{% if user.is_authenticated %}
@@ -24,7 +24,8 @@
 						<li><a href="{% url registration_register %}">Criar conta</a></li>
 					{% endif %}
 				</ul>
-				<br class="clearfix"/>
+			</div>
+			<div class="container_12">
 				<div id="banner-text">
 					<img class="grid_2 alpha" src="{{STATIC_URL}}img/logo_wict.png"/>
 					<div class="grid_10 omega">
