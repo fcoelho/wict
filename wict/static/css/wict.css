@@ -110,3 +110,7 @@ th {
 .help-text {
 	color: #AAAAAA;
 }
+fieldset {
+	border: solid 1px #555;
+	padding: 10px;
+}

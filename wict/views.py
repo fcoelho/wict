@@ -12,8 +12,8 @@ from django.core.urlresolvers import reverse
 from sendfile import sendfile
 
 from wict.decorators import require_reviewer, require_submitter
-from wict.models import Article
-from wict.forms import ArticleForm, AuthorForm
+from wict.models import Article, Author
+from wict.forms import ArticleForm, AuthorForm, AuthorFormSet
 
 def index(request):
 	return render(request, 'wict/index.html', {'home_active': True})
@@ -26,26 +26,32 @@ def registration(request):
 
 @require_submitter
 def submission(request):
-	article = Article.objects.filter(user=request.user)
+	article = Article.objects.get(user=request.user)
 	context = {'article' : article, 'submission_active' : True}
 	return render(request, 'wict/submission.html', context)
 
 @require_submitter
 def new_submission(request):
+	if Article.objects.filter(user=request.user).exists():
+		return HttpResponseRedirect(reverse('submission'))
 	if request.method == 'POST':
 		form = ArticleForm(request.POST, request.FILES)
 		if form.is_valid():
 			article = form.save(commit=False)
 			article.user = request.user
-			article.save()
-			return HttpResponseRedirect(reverse('submission'))
+			formset = AuthorFormSet(request.POST, instance=article)
+			if formset.is_valid():
+				article.save()
+				formset.save()
+				return HttpResponseRedirect(reverse('submission'))
+		else:
+			formset = AuthorFormSet(request.POST)
+			
 	else:
 		form = ArticleForm()
-		from django.forms.formsets import formset_factory
-		ArticleFormSet = formset_factory(AuthorForm)
-		form = ArticleFormSet()
+		formset = AuthorFormSet(instance=Article())
 	
-	context = {'form' : form, 'submission_active' : True}
+	context = {'form' : form, 'formset' : formset}
 	return render(request, 'wict/new_submission.html', context)
 
 @require_reviewer

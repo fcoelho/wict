@@ -3,6 +3,7 @@
 from django import forms
 from django.conf import settings
 from django.template.defaultfilters import filesizeformat
+from django.forms.models import inlineformset_factory
 from registration.forms import RegistrationForm
 from wict.models import UserProfile, Article, Author
 
@@ -49,7 +50,7 @@ class AuthorForm(forms.ModelForm):
 		model = Author
 		exclude = ('article',)
 
-
+AuthorFormSet = inlineformset_factory(Article, Author, can_delete=False, extra=1)
 
 
 

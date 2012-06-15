@@ -4,6 +4,8 @@
 
 {% block content %}
 	{% if article %}
+		<p>{{article.title}}</p>
+		<p>{{article.get_topic_display}}</p>
 	{% else %}
 		<h1>Você ainda não submeteu nenhum artigo.</h1>
 		<p>Para submeter um artigo, clique <a href="{% url submission_new %}">aqui</a>.</p>

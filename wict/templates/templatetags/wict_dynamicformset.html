@@ -5,16 +5,17 @@
 		{% for form in formset %}
 			{% if forloop.first %}
 				<tr>
-				{% for field in form %}
+				{% for field in form.visible_fields %}
 					<th>{{field.label_tag}}</th>
 				{% endfor %}
 				</tr>
 			{% endif %}
 			<tr>
-			{% for field in form %}
+			{% for field in form.visible_fields %}
 				<td>{{field}}</td>
 			{% endfor %}
 			</tr>
 		{% endfor %}
 	</table>
+	<input type="button" value="Adicionar outro" id="add-form-element"/>
 </fieldset>
