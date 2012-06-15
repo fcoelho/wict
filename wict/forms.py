@@ -4,7 +4,7 @@ from django import forms
 from django.conf import settings
 from django.template.defaultfilters import filesizeformat
 from registration.forms import RegistrationForm
-from wict.models import UserProfile, Article
+from wict.models import UserProfile, Article, Author
 
 class WictRegistrationForm(RegistrationForm):
 	full_name = forms.CharField(
@@ -43,3 +43,18 @@ class ArticleForm(forms.ModelForm):
 				return file
 		else:
 			raise ValidationError("Meu erro custom")
+
+class AuthorForm(forms.ModelForm):
+	class Meta:
+		model = Author
+		exclude = ('article',)
+
+
+
+
+
+
+
+
+
+

@@ -16,9 +16,9 @@ class UserProfile(models.Model):
 
 class Author(models.Model):
 	article = models.ForeignKey('Article')
-	first_name = models.CharField(max_length=30)
-	last_name = models.CharField(max_length=30)
-	binding = models.CharField(max_length=30)
+	first_name = models.CharField(max_length=30, verbose_name='Primeiro nome')
+	last_name = models.CharField(max_length=30, verbose_name='Último nome')
+	binding = models.CharField(max_length=30, verbose_name='Vínculo (instituição)')
 
 class Article(models.Model):
 	TOPIC_CHOICES = (

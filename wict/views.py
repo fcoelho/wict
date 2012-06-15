@@ -7,12 +7,13 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import login
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from sendfile import sendfile
 
 from wict.decorators import require_reviewer, require_submitter
 from wict.models import Article
-from wict.forms import ArticleForm
+from wict.forms import ArticleForm, AuthorForm
 
 def index(request):
 	return render(request, 'wict/index.html', {'home_active': True})
@@ -37,9 +38,12 @@ def new_submission(request):
 			article = form.save(commit=False)
 			article.user = request.user
 			article.save()
-			return HttpResponse('Form valido!')
+			return HttpResponseRedirect(reverse('submission'))
 	else:
 		form = ArticleForm()
+		from django.forms.formsets import formset_factory
+		ArticleFormSet = formset_factory(AuthorForm)
+		form = ArticleFormSet()
 	
 	context = {'form' : form, 'submission_active' : True}
 	return render(request, 'wict/new_submission.html', context)

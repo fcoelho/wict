@@ -1,0 +1,17 @@
+{{formset.management_form}}
+<table class="form-row">
+	{% for form in formset %}
+		{% if forloop.first %}
+			<tr>
+			{% for field in form %}
+				<th>{{field.label_tag}}</th>
+			{% endfor %}
+			</tr>
+		{% endif %}
+		<tr>
+		{% for field in form %}
+			<td>{{field}}</td>
+		{% endfor %}
+		</tr>
+	{% endfor %}
+</table>

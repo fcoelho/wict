@@ -3,11 +3,15 @@
 {% block title %}Novo artigo{% endblock %}
 
 {% block content %}
-	<form action="." method="post" enctype="multipart/form-data">
-		{% csrf_token %}
+	<form method="post" action=".">
 		{% load wict %}
-		{% wict_form form %}
-		<input type="submit"/>
+		{% wict_formset form %}
+		<input type="button" value="Adicionar outro autor" id="add-author"/>
+		<script>
+			$('#add-author').click(function() {
+				cloneFormElement('table.form-row tr:last', 'form');
+			});
+		</script>
 	</form>
 {% endblock %}
  
