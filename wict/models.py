@@ -3,6 +3,23 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import slugify
+import os
+
+def article_upload_to(instance, filename):
+	profile = instance.user.get_profile()
+	path = 'articles/'
+	return os.path.join(path, slugify(profile.full_name) + '.pdf')	
+	
+def create_user_profile(sender, user, request, **kwargs):
+	from wict.forms import WictRegistrationForm
+	form = WictRegistrationForm(request.POST)
+	profile = UserProfile(
+		user=user,
+		full_name=form.data['full_name'],
+		is_reviewer=False
+	)
+	profile.save()
 
 class UserProfile(models.Model):
 	user = models.ForeignKey(User, unique=True)
@@ -40,17 +57,7 @@ class Article(models.Model):
 	title = models.CharField(max_length=255, verbose_name='Título')
 	abstract = models.TextField(verbose_name='Resumo')
 	topic = models.CharField(max_length=2, choices=TOPIC_CHOICES,verbose_name='Assunto principal')
-	file = models.FileField(upload_to='articles', verbose_name='Arquivo')
-
-def create_user_profile(sender, user, request, **kwargs):
-	from wict.forms import WictRegistrationForm
-	form = WictRegistrationForm(request.POST)
-	profile = UserProfile(
-		user=user,
-		full_name=form.data['full_name'],
-		is_reviewer=False
-	)
-	profile.save()
+	file = models.FileField(upload_to=article_upload_to, verbose_name='Arquivo')
 
 from registration.signals import user_registered
 user_registered.connect(create_user_profile)

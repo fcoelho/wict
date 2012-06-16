@@ -10,7 +10,7 @@
 		{% wict_dynamicformset formset "Autores" %}
 		<script>
 			$('#add-form-element').click(function() {
-				cloneFormElement('table.form-row tr:last', 'form');
+				cloneFormElement('table.form-row tr:last', 'author_set');
 			});
 		</script>
 		<input type="submit"/>

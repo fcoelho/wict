@@ -114,3 +114,21 @@ fieldset {
 	border: solid 1px #555;
 	padding: 10px;
 }
+.article {
+	border: solid 1px #AAA;
+	margin-left: 9px;
+	margin-right: 9px;
+	padding: 10px 0;
+}
+
+.article-info p {
+	text-align: justify;
+}
+
+.article-info p span {
+	font-weight: bold;
+}
+
+.article-actions {
+	text-align: center;
+}
