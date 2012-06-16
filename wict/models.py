@@ -8,9 +8,10 @@ import os
 import uuid
 
 def article_upload_to(instance, filename):
-	user = instance.user
+	profile = instance.user.get_profile()
+	first_name = profile.full_name.split()[0]
 	path = 'articles/'
-	filename = "%s-%s.pdf" % (slugify(user.first_name), uuid.uuid4())
+	filename = "%s-%s.pdf" % (slugify(first_name), uuid.uuid4())
 	return os.path.join(path, filename)
 	
 def create_user_profile(sender, user, request, **kwargs):
