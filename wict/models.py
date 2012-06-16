@@ -5,11 +5,13 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 import os
+import uuid
 
 def article_upload_to(instance, filename):
-	profile = instance.user.get_profile()
+	user = instance.user
 	path = 'articles/'
-	return os.path.join(path, slugify(profile.full_name) + '.pdf')	
+	filename = "%s-%s.pdf" % (slugify(user.first_name), uuid.uuid4())
+	return os.path.join(path, filename)
 	
 def create_user_profile(sender, user, request, **kwargs):
 	from wict.forms import WictRegistrationForm
