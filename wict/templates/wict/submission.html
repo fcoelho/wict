@@ -14,7 +14,7 @@
 			<div class="grid_1 omega article-actions">
 				<p><a title="Editar" href="{% url submission_edit %}"><img src="{{STATIC_URL}}img/edit.png"/></a></p>
 				<p><a title="Download" href="{{article.file.url}}"><img src="{{STATIC_URL}}img/pdf.png"/></a></p>
-				<p><a title="Apagar" onclick="return confirm('Apagar submissão?');" href=""><img src="{{STATIC_URL}}img/delete.png"/></a></p>
+				<p><a title="Apagar" onclick="return confirm('Apagar submissão?');" href="{% url submission_delete %}"><img src="{{STATIC_URL}}img/delete.png"/></a></p>
 			</div>
 		</div>
 	{% else %}

@@ -90,6 +90,16 @@ def edit_submission(request):
 	
 	context = {'form' : form, 'formset' : formset, 'submission_active' : True}
 	return render(request, 'wict/edit_submission.html', context)
+
+@require_submitter
+def delete_submission(request):
+	try:
+		article = Article.objects.get(user=request.user)
+	except ObjectDoesNotExist:
+		return HttpResponseRedirect(reverse('submission'))
+	
+	article.delete()
+	return HttpResponseRedirect(reverse('submission'))
 	
 @require_reviewer
 def review(request):
