@@ -53,7 +53,7 @@ class ArticleForm(forms.ModelForm):
 					)
 				return file
 		else:
-			raise ValidationError("Meu erro custom")
+			raise ValidationError("Este campo é obrigatório")
 
 class AuthorForm(forms.ModelForm):
 	class Meta:
