@@ -70,6 +70,7 @@ STATIC_ROOT = os.path.join(SETTINGS_PATH, "../STATIC")
 STATIC_URL = '/static/'
 
 MAX_ARTICLE_FILE_SIZE = 2 * 1024 * 1024
+MAX_ARTICLE_PAGES = 3
 
 # Additional locations of static files
 STATICFILES_DIRS = (
