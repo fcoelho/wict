@@ -1,1 +1,1 @@
-Ativar conta do site maneiro: {{site}} | {{expiration_days}} dias!!
+Ativação da conta do VI Workshop de Iniciação Científica e Tecnológica

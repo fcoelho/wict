@@ -3,5 +3,8 @@
 {% block title %}Ativação falhou{% endblock %}
 
 {% block content %}
-	<p>Ih, a ativação falhou, olhaí: <b>{{activation_key}}</b></p>
+	<p>A ativação da conta falhou. A chave de acesso utilizada foi:</p>
+	<ul><li class="mono">{{activation_key}}</li></ul>
+	<p>Se você acha que isso foi um erro, por favor entre em contato pelo e-mail
+	<span class="mono">semcomp@icmc.usp.br</span></p>
 {% endblock %}

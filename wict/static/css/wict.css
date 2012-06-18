@@ -132,3 +132,7 @@ fieldset {
 .article-actions {
 	text-align: center;
 }
+
+.mono {
+	font-family: monospace;
+}

@@ -1,7 +1,10 @@
-Você precisa ativar a sua conta, cara. É sério. faz aí:
+Obrigado por se registrar no VI Workshop de Iniciação Científica e Tecnológica!
 
-activation_key : {{activation_key}}
+Para terminar seu cadastro, acesse o link abaixo.
 
-expiration_days : {{expiration_days}}
+	http://{{site}}{% url registration_activate activation_key %}
 
-site : {{site}}
+O link permanecerá válido por {{expiration_days}} dias.
+
+Atenciosamente,
+VI Workshop de Iniciação Científica
