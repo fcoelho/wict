@@ -2,4 +2,4 @@ Django==1.4
 django-profiles==0.2
 -e hg+https://bitbucket.org/ubernostrum/django-registration@27bccd108cdef30dc0a91ed1968be17bb1e60da4#egg=django_registration-dev
 django-sendfile==0.3.0
-wsgiref==0.1.2
+pyPdf==1.13
