@@ -16,6 +16,4 @@ urlpatterns = patterns('',
 		'website.views.registration',
 		name='website_registration'
 	),
-	url('', include('submission.urls')),
-	#url('', include('review.urls')),
 )
