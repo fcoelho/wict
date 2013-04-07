@@ -29,6 +29,9 @@ SECRET_KEY = 'gwxr4yc-*@85$#9s@uh268y7c2xxad1+#g+n*$hk9j%gihpo2r'
 ROOT_URLCONF = 'wict.urls'
 
 INSTALLED_APPS = (
+	# Wict apps come first -> select wict templates first!
+	'website',
+	'submission',
 	# Django contrib apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,9 +42,6 @@ INSTALLED_APPS = (
 	# Thirdy party apps
 	'signup',
 	'sendfile',
-	# Wict apps
-	'website',
-	'submission',
 )
 
 AUTH_USER_MODEL = 'website.WictUser'
