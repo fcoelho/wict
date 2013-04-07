@@ -12,13 +12,13 @@
 				<p><span>Autores:</span> {{authors|join:", "}}</p>
 			</div>
 			<div class="grid_1 omega article-actions">
-				<p><a title="Editar" href="{% url "submission_edit" %}"><img src="{{STATIC_URL}}img/edit.png"/></a></p>
+				<p><a title="Editar" href="{% url "website_submission_edit" %}"><img src="{{STATIC_URL}}img/edit.png"/></a></p>
 				<p><a title="Download" href="{{article.file.url}}"><img src="{{STATIC_URL}}img/pdf.png"/></a></p>
-				<p><a title="Apagar" onclick="return confirm('Apagar submissão?');" href="{% url "submission_delete" %}"><img src="{{STATIC_URL}}img/delete.png"/></a></p>
+				<p><a title="Apagar" onclick="return confirm('Apagar submissão?');" href="{% url "website_submission_delete" %}"><img src="{{STATIC_URL}}img/delete.png"/></a></p>
 			</div>
 		</div>
 	{% else %}
 		<h1>Você ainda não submeteu nenhum artigo.</h1>
-		<p>Para submeter um artigo, clique <a href="{% url "submission_create" %}">aqui</a>.</p>
+		<p>Para submeter um artigo, clique <a href="{% url "website_submission_new" %}">aqui</a>.</p>
 	{% endif %}
 {% endblock %}

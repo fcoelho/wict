@@ -4,3 +4,4 @@ base.sqlite3
 *.swp
 FILES/*
 env/*
+media/*

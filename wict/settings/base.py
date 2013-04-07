@@ -41,6 +41,7 @@ INSTALLED_APPS = (
 	'sendfile',
 	# Wict apps
 	'website',
+	'submission',
 )
 
 AUTH_USER_MODEL = 'website.WictUser'
