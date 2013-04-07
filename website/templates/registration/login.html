@@ -3,15 +3,15 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-	<p>Por favor, entre com seu usuário e senha para fazer login.<p>
+	<p>Por favor, entre com seu email e senha para fazer login.<p>
 	<div class="grid_5 push_2">
-		<form method="post" action="{% url auth_login %}">
+		<form method="post" action="{% url "login" %}">
 			{% csrf_token %}
 			{% load wict %}
 			{% wict_form form %}
 			<input type="hidden" name="next" value="{{next}}"/>
 			<input type="submit"/>
 		</form>
-		<a href="{% url auth_password_reset %}">Esqueceu sua senha?</a>
+		<a href="{% url "password_reset" %}">Esqueceu sua senha?</a>
 	</div>
 {% endblock %}

@@ -1,5 +1,5 @@
-Django==1.4
-django-profiles==0.2
--e hg+https://bitbucket.org/ubernostrum/django-registration@27bccd108cdef30dc0a91ed1968be17bb1e60da4#egg=django_registration-dev
+Django==1.5.1
+Unipath==1.0
 django-sendfile==0.3.0
+-e hg+https://bitbucket.org/fcoelho/django-signup@c01552a12703f3a952f723ad29107b9f87e7d895#egg=django_signup-dev
 pyPdf==1.13

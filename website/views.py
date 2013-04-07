@@ -9,11 +9,9 @@ from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
-from sendfile import sendfile
-
-from wict.decorators import require_reviewer, require_submitter
-from wict.models import Article, Author
-from wict.forms import ArticleForm, AuthorForm, AuthorFormSet
+from .decorators import require_reviewer, require_author
+from .models import Article, Author
+from .forms import ArticleForm, AuthorForm, AuthorFormSet
 
 def index(request):
 	return render(request, 'wict/index.html', {'home_active': True})
@@ -24,7 +22,7 @@ def articles(request):
 def registration(request):
 	return render(request, 'wict/registration.html', {'registration_active' : True})
 
-@require_submitter
+@require_author
 def submission(request):
 	try:
 		#Só pode existir um artigo com esse usuário, então bora lá
@@ -42,7 +40,7 @@ def submission(request):
 	}
 	return render(request, 'wict/submission.html', context)
 
-@require_submitter
+@require_author
 def new_submission(request):
 	if Article.objects.filter(user=request.user).exists():
 		return HttpResponseRedirect(reverse('submission'))
@@ -66,7 +64,7 @@ def new_submission(request):
 	context = {'form' : form, 'formset' : formset, 'submission_active' : True}
 	return render(request, 'wict/new_submission.html', context)
 
-@require_submitter
+@require_author
 def edit_submission(request):
 	try:
 		article = Article.objects.get(user=request.user)
@@ -91,7 +89,7 @@ def edit_submission(request):
 	context = {'form' : form, 'formset' : formset, 'submission_active' : True}
 	return render(request, 'wict/edit_submission.html', context)
 
-@require_submitter
+@require_author
 def delete_submission(request):
 	try:
 		article = Article.objects.get(user=request.user)
@@ -104,12 +102,4 @@ def delete_submission(request):
 @require_reviewer
 def review(request):
 	return render(request, 'wict/review.html', {'review_active' : True})
-
-#Não faz sentido alguém tentar fazer login se já logou antes,
-#então se a pessoa estiver logada, redireciona pra outro lugar
-def wict_login(request, **kwargs):
-	if request.user.is_authenticated():
-		return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
-	else:
-		return login(request, **kwargs)
 

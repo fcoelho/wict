@@ -3,7 +3,7 @@
 {% block title %}Editar artigo{% endblock %}
 
 {% block content %}
-	<form method="post" action="." enctype="multipart/form-data">
+	<form method="post" action="" enctype="multipart/form-data">
 		{% csrf_token %}
 		{% load wict %}
 		{% wict_form form %}

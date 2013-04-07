@@ -1,38 +1,78 @@
 #coding: utf-8
 
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 import os
 import uuid
 
 def article_upload_to(instance, filename):
-	profile = instance.user.get_profile()
-	first_name = profile.full_name.split()[0]
+	user = instance.user
+	first_name = user.full_name.split()[0]
 	path = 'articles/'
 	filename = "%s-%s.pdf" % (slugify(first_name), uuid.uuid4())
 	return os.path.join(path, filename)
 	
-def create_user_profile(sender, user, request, **kwargs):
-	from wict.forms import WictRegistrationForm
-	form = WictRegistrationForm(request.POST)
-	profile = UserProfile(
-		user=user,
-		full_name=form.data['full_name'],
-		is_reviewer=False
+class WictUserManager(BaseUserManager):
+	def create_user(self, email, full_name, password=None):
+		if not email:
+			msg = _('Users must have an email address')
+			raise ValueError(msg)
+
+		if not full_name:
+			msg = _('Users must have a name')
+			raise ValueError(msg)
+
+		user = self.model(
+			email=WictUserManager.normalize_email(email),
+			full_name=full_name
+		)
+
+		user.set_password(password)
+		user.save(using=self._db)
+		return user
+	
+	def create_superuser(self, email, full_name, password=None):
+		user = self.create_user(email, full_name, password)
+		user.is_admin = True
+		user.is_staff = True
+		user.is_superuser = True
+		user.save(using=self._db)
+		return user
+
+class WictUser(AbstractBaseUser, PermissionsMixin):
+	email = models.EmailField(
+		_('Email address'),
+		max_length=254,
+		unique=True,
+		db_index=True
 	)
-	profile.save()
 
-class UserProfile(models.Model):
-	user = models.ForeignKey(User, unique=True)
-
-	full_name = models.CharField(max_length=100)
+	full_name = models.CharField(max_length=255)
 	is_reviewer = models.BooleanField(default=False)
 
-	def get_absolute_url(self):
-		return ('profiles_profile_detail', (), {'username': self.user.username})
-	get_absolute_url = models.permalink(get_absolute_url)
+	# django-admin fields
+	is_active = models.BooleanField(default=True)
+	is_admin = models.BooleanField(default=False)
+	is_staff = models.BooleanField(default=False)
+
+	objects = WictUserManager()
+
+	USERNAME_FIELD = 'email'
+	REQUIRED_FIELDS = ['full_name']
+
+	def get_full_name(self):
+		return self.full_name
+	
+	def get_short_name(self):
+		return self.full_name.split()[0]
+	
+	def __unicode__(self):
+		return self.email
 
 class Author(models.Model):
 	article = models.ForeignKey('Article')
@@ -56,11 +96,9 @@ class Article(models.Model):
 		('XX', 'Outro')
 	)
 
-	user = models.ForeignKey(User)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	title = models.CharField(max_length=255, verbose_name='Título')
 	abstract = models.TextField(verbose_name='Resumo')
 	topic = models.CharField(max_length=2, choices=TOPIC_CHOICES,verbose_name='Assunto principal')
 	file = models.FileField(upload_to=article_upload_to, verbose_name='Arquivo')
 
-from registration.signals import user_registered
-user_registered.connect(create_user_profile)

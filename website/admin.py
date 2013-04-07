@@ -1,9 +1,5 @@
 from django.contrib import admin
-from wict.models import UserProfile, Article
-
-class UserProfileAdmin(admin.ModelAdmin):
-	pass
-admin.site.register(UserProfile, UserProfileAdmin)
+from .models import Article
 
 class ArticleAdmin(admin.ModelAdmin):
 	list_display = ('user', 'title', 'topic')

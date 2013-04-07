@@ -1,0 +1,10 @@
+Obrigado por se registrar no VI Workshop de Iniciação Científica e Tecnológica!
+
+Para terminar seu cadastro, acesse o link abaixo.
+
+	{{url}}
+
+O link permanecerá válido por {{activation_days}} dias.
+
+Atenciosamente,
+VI Workshop de Iniciação Científica

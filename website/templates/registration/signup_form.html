@@ -4,7 +4,7 @@
 
 {% block content %}
 	<div class="grid_5 push_2">
-		<form method="post" action=".">
+		<form method="post" action="{% url "signup_signup" %}">
 			{% csrf_token %}
 			{% load wict %}
 			{% wict_form form %}

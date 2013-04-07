@@ -26,21 +26,25 @@ STATIC_URL = '/static/'
 
 SECRET_KEY = 'gwxr4yc-*@85$#9s@uh268y7c2xxad1+#g+n*$hk9j%gihpo2r'
 
-ROOT_URLCONF = 'wictsite.urls'
+ROOT_URLCONF = 'wict.urls'
 
 INSTALLED_APPS = (
+	# Django contrib apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'registration',
-	'sendfile',
-	'wict',
-	'profiles',
     'django.contrib.admin',
+	# Thirdy party apps
+	'signup',
+	'sendfile',
+	# Wict apps
+	'website',
 )
+
+AUTH_USER_MODEL = 'website.WictUser'
+SIGNUP_FORM_CLASS = 'website.forms.UserSignUpForm'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
