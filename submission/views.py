@@ -7,7 +7,7 @@ from .forms import ArticleForm, AuthorForm, AuthorFormSet
 @require_author
 def submission(request):
 	try:
-		article = Article.objects.get(user=request.user)
+		article = Article.objects.get(author=request.user)
 		authors = []
 		for author in Author.objects.filter(article=article):
 			authors.append(author.first_name + ' ' + author.last_name)
@@ -23,13 +23,13 @@ def submission(request):
 
 @require_author
 def new_submission(request):
-	if Article.objects.filter(user=request.user).exists():
+	if Article.objects.filter(author=request.user).exists():
 		return redirect('website_submission')
 	if request.method == 'POST':
 		form = ArticleForm(request.POST, request.FILES)
 		if form.is_valid():
 			article = form.save(commit=False)
-			article.user = request.user
+			article.author = request.user
 			formset = AuthorFormSet(request.POST, instance=article)
 			if formset.is_valid():
 				article.save()

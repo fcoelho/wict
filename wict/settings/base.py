@@ -32,6 +32,7 @@ INSTALLED_APPS = (
 	# Wict apps come first -> select wict templates first!
 	'website',
 	'submission',
+	'review',
 	# Django contrib apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +44,16 @@ INSTALLED_APPS = (
 	'signup',
 	'sendfile',
 )
+
+MIDDLEWARE_CLASSES = (
+	'django.middleware.common.CommonMiddleware',
+	'django.contrib.sessions.middleware.SessionMiddleware',
+	'django.middleware.csrf.CsrfViewMiddleware',
+	'django.contrib.auth.middleware.AuthenticationMiddleware',
+	'django.contrib.messages.middleware.MessageMiddleware',
+	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
 
 AUTH_USER_MODEL = 'website.WictUser'
 SIGNUP_FORM_CLASS = 'website.forms.UserSignUpForm'

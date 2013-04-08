@@ -8,14 +8,14 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 def article_upload_to(instance, filename):
-	user = instance.user
-	first_name = user.full_name.split()[0]
+	author = instance.author
+	first_name = author.full_name.split()[0]
 	path = 'articles/'
 	filename = "%s-%s.pdf" % (slugify(first_name), uuid.uuid4())
 	return os.path.join(path, filename)
 
 class Author(models.Model):
-	article = models.ForeignKey('Article')
+	article = models.ForeignKey('Article', related_name='author_set')
 	first_name = models.CharField(max_length=30, verbose_name='Primeiro nome')
 	last_name = models.CharField(max_length=30, verbose_name='Último nome')
 	binding = models.CharField(max_length=30, verbose_name='Vínculo (instituição)')
@@ -36,9 +36,13 @@ class Article(models.Model):
 		('XX', 'Outro')
 	)
 
-	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	author = models.ForeignKey(settings.AUTH_USER_MODEL)
 	title = models.CharField(max_length=255, verbose_name='Título')
 	abstract = models.TextField(verbose_name='Resumo')
 	topic = models.CharField(max_length=2, choices=TOPIC_CHOICES,verbose_name='Assunto principal')
 	file = models.FileField(upload_to=article_upload_to, verbose_name='Arquivo')
+	reviews = models.ManyToManyField('website.WictUser', through='review.Review', related_name='reviews_set')
+
+	def __unicode__(self):
+		return self.title
 

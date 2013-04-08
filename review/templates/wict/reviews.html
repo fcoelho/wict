@@ -1,0 +1,17 @@
+{% extends "wict/index.html" %}
+
+{% block title %}Revisões{% endblock %}
+
+{% block content %}
+	{% if reviews %}
+		<h1>Revisão de trabalhos</h1>
+		<div class="grid_9 alpha omega">
+			{% for review in reviews %}
+				<p>{{review.reviewer}}</p>
+				<p>{{review.article.title}}</p>
+			{% endfor %}
+		</div>
+	{% else %}
+		<h1>Você ainda não tem nenhum artigo para revisar</h1>
+	{% endif %}
+{% endblock %}

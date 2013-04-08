@@ -43,7 +43,7 @@
 				<li><a class="grid_4{% if articles_active %} active-menu{% endif %}" href="{% url "website_articles" %}">Trabalhos</a></li>
 				{% if user.is_authenticated %}
 					{% if user.is_reviewer %}
-						<li><a class="grid_4{% if review_active %} active-menu{% endif %}" href="{% url "website_review" %}">Revisão</a></li>
+						<li><a class="grid_4{% if review_active %} active-menu{% endif %}" href="{% url "website_reviews" %}">Revisão</a></li>
 					{% else %}
 						<li><a class="grid_4{% if submission_active %} active-menu{% endif %}" href="{% url "website_submission" %}">Submissão</a></li>
 					{% endif %}
