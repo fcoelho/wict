@@ -10,7 +10,7 @@ import pyPdf
 class ArticleForm(forms.ModelForm):
 	class Meta:
 		model = Article
-		exclude = ('author', 'reviews')
+		exclude = ('author', 'reviews', 'status')
 	
 	def clean_file(self):
 		file = self.cleaned_data.get('file', False)

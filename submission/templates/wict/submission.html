@@ -10,6 +10,7 @@
 				<p title="{{article.abstract}}"><span>Resumo:</span> {{article.abstract|truncatechars:200}}</p>
 				<p><span>Assunto:</span> {{article.get_topic_display}}</p>
 				<p><span>Autores:</span> {{authors|join:", "}}</p>
+				<p><span>Status:</span> {{article.get_status_display}}</p>
 			</div>
 			<div class="grid_1 omega article-actions">
 				<p><a title="Editar" href="{% url "website_submission_edit" %}"><img src="{{STATIC_URL}}img/edit.png"/></a></p>

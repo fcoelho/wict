@@ -36,12 +36,20 @@ class Article(models.Model):
 		('XX', 'Outro')
 	)
 
+	STATUS_CHOICES = (
+		('EN', 'Enviado'),
+		('ER', 'Em revisão'),
+		('AP', 'Aprovado'),
+		('RJ', 'Rejeitado')
+	)
+
 	author = models.ForeignKey(settings.AUTH_USER_MODEL)
 	title = models.CharField(max_length=255, verbose_name='Título')
 	abstract = models.TextField(verbose_name='Resumo')
-	topic = models.CharField(max_length=2, choices=TOPIC_CHOICES,verbose_name='Assunto principal')
+	topic = models.CharField(max_length=2, choices=TOPIC_CHOICES, verbose_name='Assunto principal')
 	file = models.FileField(upload_to=article_upload_to, verbose_name='Arquivo')
 	reviews = models.ManyToManyField('website.WictUser', through='review.Review', related_name='reviews_set')
+	status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='EN', verbose_name='Estado atual')
 
 	def __unicode__(self):
 		return self.title
