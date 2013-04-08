@@ -1,5 +1,6 @@
 Django==1.5.1
 Unipath==1.0
+django-debug-toolbar==0.9.4
 django-sendfile==0.3.0
 -e hg+https://bitbucket.org/fcoelho/django-signup@c01552a12703f3a952f723ad29107b9f87e7d895#egg=django_signup-dev
 pyPdf==1.13
