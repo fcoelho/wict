@@ -5,3 +5,4 @@ base.sqlite3
 FILES/*
 env/*
 media/*
+.DS_Store
