@@ -6,4 +6,9 @@ urlpatterns = patterns('',
 		'review.views.reviews',
 		name='website_reviews'
 	),
+	url(
+		r'^(?P<review_id>\d+)/$',
+		'review.views.display_review',
+		name='website_reviews_display'
+	)
 )

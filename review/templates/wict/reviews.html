@@ -9,6 +9,7 @@
 			{% for review in reviews %}
 				<p>{{review.reviewer}}</p>
 				<p>{{review.article.title}}</p>
+				<a href="{{review.article.file.url}}">Download artigo</a>
 			{% endfor %}
 		</div>
 	{% else %}
