@@ -3,12 +3,12 @@ from django import forms
 from django.contrib import admin
 
 from submission.models import Article
-from .models import Review
+from .models import Review, Criteria
 
 class ReviewForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(ReviewForm, self).__init__(*args, **kwargs)
-		#self.fields['article'].queryset = Article.review_set.exclude(
+		self.fields['article'].empty_label = None
 
 	class Meta:
 		model = Review
@@ -18,8 +18,12 @@ class ReviewAdmin(admin.ModelAdmin):
 		return review.reviewer.get_full_name()
 	def article_title(self, review):
 		return review.article.title
+	
+	def article_count(self, review):
+		return unicode(Review.objects.filter(reviewer=review.reviewer).count())
 
-	list_display = ('reviewer_name', 'article_title')
+	list_display = ('reviewer_name', 'article_count', 'article_title')
 	form = ReviewForm
-admin.site.register(Review, ReviewAdmin)
 
+admin.site.register(Review, ReviewAdmin)
+admin.site.register(Criteria)
