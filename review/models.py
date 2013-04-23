@@ -16,7 +16,6 @@ class Review(models.Model):
 		limit_choices_to={'is_reviewer': True}
 	)
 	article = models.ForeignKey('submission.Article')
-	comment = models.TextField()
 
 	class Meta:
 		unique_together = ('reviewer', 'article')
@@ -29,27 +28,29 @@ class Review(models.Model):
 		# if the model was just created, add the new criteria instances
 		if created:
 			attrs = [
-				'Originalidade',
-				'Qualidade',
-				'Relevância',
-				'Apresentação'
+				('Originalidade', ''),
+				('Qualidade', 'Qualidade técnica, metodológica, analítica'),
+				('Relevância', ''),
+				('Apresentação', 'Legibilidade, clareza da apresentação, organização das ideias'),
 			]
 
 			for attr in attrs:
-				c = Criteria(review=self, attribute=attr)
+				c = Criteria(review=self, attribute=attr[0], help_text=attr[1])
 				c.save()
 
 
 class Criteria(models.Model):
 	VALUES = (
-		(1, 'weak'),
-		(2, 'below average'),
-		(3, 'average'),
-		(4, 'good'),
-		(5, 'excellent')
+		(1, 'Fraco'),
+		(2, 'Abaixo da média'),
+		(3, 'Médio'),
+		(4, 'Bom'),
+		(5, 'Excelente')
 	)
 
 	review = models.ForeignKey(Review)
 
 	attribute = models.CharField(max_length=64)
 	value = models.IntegerField(default=1, choices=VALUES)
+	comment = models.TextField()
+	help_text = models.CharField(max_length=255, blank=True)

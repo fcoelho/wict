@@ -48,7 +48,7 @@ def new_submission(request):
 @require_author
 def edit_submission(request):
 	try:
-		article = Article.objects.get(user=request.user)
+		article = Article.objects.get(author=request.user)
 	except Article.DoesNotExist:
 		return redirect('website_submission_new')
 	

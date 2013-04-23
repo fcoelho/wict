@@ -1,0 +1,37 @@
+{% extends "wict/index.html" %}
+
+{% block title %}Revisão - {{review.article.title|truncatechars:20}}{% endblock %}
+
+{% block content %}
+	<h1>Revisão de trabalhos</h1>
+	<div class="grid_9 alpha omega">
+			<p>{{review.reviewer}}</p>
+			<p>{{review.article.title}}</p>
+			<a href="{{review.article.file.url}}">Download artigo</a>
+	</div>
+	<form class="grid_9 alpha omega">
+		{{formset.management_form}}
+		{% for form in formset %}
+			<div class="form-div">
+				{{form.non_field_errors}}
+				{% for hidden in form.hidden_fields %}
+					{{hidden}}
+				{% endfor %}
+				<p class="grid_9 alpha omega"><strong>{{form.attribute.value}}</strong><p>
+				<div class="grid_7 alpha">
+					{% if form.help_text %}
+						<p class="help-text">{{form.help_text.value}}</p>
+					{% endif %}
+					{{form.comment}}
+				</div>
+				<div class="grid_2 omega radio-values">
+					{{form.value}}
+				</div>
+				<hr class="grid_9 alpha omega" style="margin-top: 10px; margin-bottom: 10px;"/>
+			</div>
+		{% endfor %}
+		<div class="grid_9 alpha omega">
+			<input type="submit"/>
+		</div>
+	</form>
+{% endblock %}

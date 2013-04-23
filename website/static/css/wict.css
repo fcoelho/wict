@@ -108,7 +108,7 @@ th {
 	background-color: #FFB7BF;
 }
 .help-text {
-	color: #AAAAAA;
+	color: #888;
 }
 fieldset {
 	border: solid 1px #555;
@@ -135,4 +135,15 @@ fieldset {
 
 .mono {
 	font-family: monospace;
+}
+
+.radio-values ul {
+	list-style-type: none;
+}
+.radio-values li {
+	margin: 0;
+}
+
+.attribute-name {
+	font-weight: bolder;
 }
