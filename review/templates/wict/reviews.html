@@ -5,11 +5,28 @@
 {% block content %}
 	{% if reviews %}
 		<h1>Revisão de trabalhos</h1>
-		<div class="grid_9 alpha omega">
+		<div class="grid_9 alpha omega article">
 			{% for review in reviews %}
-				<p>{{review.reviewer}}</p>
-				<p>{{review.article.title}}</p>
-				<a href="{{review.article.file.url}}">Download artigo</a>
+				<div class="article-info grid_8 alpha">
+					<h3>{{review.article.title}}</h3>
+					<p><span>Resumo:</span> {{review.article.abstract}}</p>
+					<p><span>Assunto:</span> {{review.article.get_topic_display}}</p>
+					<p><span>Status:</span> {% if review.reviewed %}Revisado{% else %}Aguardando revisão{% endif %}</p>
+					{% if review.reviewed %}
+						<p><span>Resultado:</span> {{review.article.get_status_display}}</p>
+					{% endif %}
+				</div>
+				<div class="grid_1 omega article-actions">
+					<p><a title="Download" href="{{review.article.file.url}}"><img src="{{STATIC_URL}}img/pdf.png"/></a></p>
+					<p><a title="Avaliar" href="{% url "website_reviews_display" review.pk %}">
+						<img src="{{STATIC_URL}}img/edit.png"/><br>
+						{% if review.reviewed %}
+							Editar avaliação
+						{% else %}
+							Avaliar
+						{% endif %}
+					</a></p>
+				</div>
 			{% endfor %}
 		</div>
 	{% else %}

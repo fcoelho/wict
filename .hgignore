@@ -2,6 +2,7 @@ syntax: glob
 base.sqlite3
 *.pyc
 *.swp
+*.swo
 FILES/*
 env/*
 media/*

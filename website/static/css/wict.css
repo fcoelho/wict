@@ -147,3 +147,9 @@ fieldset {
 .attribute-name {
 	font-weight: bolder;
 }
+
+.errorlist li {
+	background-color: #ebb;
+	border: 1px solid #eaa;
+	border-radius: 5px;
+}

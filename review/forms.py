@@ -10,6 +10,10 @@ class ReviewForm(forms.ModelForm):
 		model = Review
 
 class CriteriaForm(forms.ModelForm):
+	def __init__(self, *args, **kwargs):
+		super(CriteriaForm, self).__init__(*args, **kwargs)
+		self.fields['value'].empty_label = None
+
 	class Meta:
 		model = Criteria
 		widgets = {

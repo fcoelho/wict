@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseForbidden
 
 from website.decorators import require_reviewer
@@ -19,9 +19,14 @@ def display_review(request, review_id):
 	# check that the review belongs to the logged in reviewer
 	if review.reviewer != request.user:
 		return HttpResponseForbidden("403 Forbidden")
-
-
-	formset  = ReviewFormSet(instance=review)
+	
+	if request.method == 'POST':
+		formset = ReviewFormSet(request.POST, instance=review)
+		if formset.is_valid():
+			formset.save()
+			return redirect('website_reviews')
+	else:
+		formset = ReviewFormSet(instance=review)
 
 	return render(request, 'wict/display_review.html', {'review': review, 'formset': formset})
 

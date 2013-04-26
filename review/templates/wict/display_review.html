@@ -4,12 +4,14 @@
 
 {% block content %}
 	<h1>Revisão de trabalhos</h1>
-	<div class="grid_9 alpha omega">
-			<p>{{review.reviewer}}</p>
-			<p>{{review.article.title}}</p>
-			<a href="{{review.article.file.url}}">Download artigo</a>
+	<div class="grid_9 alpha omega article-info">
+		<p><span>Título:</span> {{review.article.title}}</p>
+		<p><span>Resumo:</span> {{review.article.abstract}}</p>
+		<p><span>Assunto:</span> {{review.article.get_topic_display}}</p>
+		<p><span>Download do artigo:</span> <a href="{{review.article.file.url}}"><img src="{{STATIC_URL}}img/pdf.png"/></a></p>
 	</div>
-	<form class="grid_9 alpha omega">
+	<form class="grid_9 alpha omega" action="{% url 'website_reviews_display' review.pk %}" method="post">
+		{% csrf_token %}
 		{{formset.management_form}}
 		{% for form in formset %}
 			<div class="form-div">
@@ -25,6 +27,7 @@
 					{{form.comment}}
 				</div>
 				<div class="grid_2 omega radio-values">
+					{{form.value.errors}}
 					{{form.value}}
 				</div>
 				<hr class="grid_9 alpha omega" style="margin-top: 10px; margin-bottom: 10px;"/>

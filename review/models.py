@@ -37,6 +37,10 @@ class Review(models.Model):
 			for attr in attrs:
 				c = Criteria(review=self, attribute=attr[0], help_text=attr[1])
 				c.save()
+	
+	def reviewed(self):
+		criteria = self.criteria_set
+		return criteria.filter(value__gt=0).count() != 0
 
 
 class Criteria(models.Model):
@@ -51,6 +55,6 @@ class Criteria(models.Model):
 	review = models.ForeignKey(Review)
 
 	attribute = models.CharField(max_length=64)
-	value = models.IntegerField(default=1, choices=VALUES)
-	comment = models.TextField()
+	value = models.IntegerField(default=-1, choices=VALUES)
+	comment = models.TextField(blank=True)
 	help_text = models.CharField(max_length=255, blank=True)
