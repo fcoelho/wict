@@ -1,0 +1,15 @@
+{{form.non_field_errors}}
+{% for hidden in form.hidden_fields %}
+	{{hidden}}
+{% endfor %}
+<p class="grid_9 alpha omega"><strong>{{form.attribute.value}}</strong><p>
+<div class="grid_7 alpha">
+	{% if form.help_text %}
+		<p class="help-text">{{form.help_text.value}}</p>
+	{% endif %}
+	{{form.comment}}
+</div>
+<div class="grid_2 omega radio-values">
+	{{form.value.errors}}
+	{{form.value}}
+</div>

@@ -17,42 +17,13 @@
 		{{formset.management_form}}
 		{% for form in formset %}
 			<div class="form-div">
-				{{form.non_field_errors}}
-				{% for hidden in form.hidden_fields %}
-					{{hidden}}
-				{% endfor %}
-				<p class="grid_9 alpha omega"><strong>{{form.attribute.value}}</strong><p>
-				<div class="grid_7 alpha">
-					{% if form.help_text %}
-						<p class="help-text">{{form.help_text.value}}</p>
-					{% endif %}
-					{{form.comment}}
-				</div>
-				<div class="grid_2 omega radio-values">
-					{{form.value.errors}}
-					{{form.value}}
-				</div>
-				<hr class="grid_9 alpha omega" style="margin-top: 10px; margin-bottom: 10px;"/>
+				{% include "wict/criteria_form.html" with form=form only %}
+				<hr class="grid_9 alpha omega"/>
 			</div>
 		{% endfor %}
-			<div class="form-div">
-				{{evaluation.non_field_errors}}
-				{% for hidden in evaluation.hidden_fields %}
-					{{hidden}}
-				{% endfor %}
-				<p class="grid_9 alpha omega"><strong>{{evaluation.attribute.value}}</strong><p>
-				<div class="grid_7 alpha">
-					{% if evaluation.help_text %}
-						<p class="help-text">{{evaluation.help_text.value}}</p>
-					{% endif %}
-					{{evaluation.comment}}
-				</div>
-				<div class="grid_2 omega radio-values">
-					{{evaluation.value.errors}}
-					{{evaluation.value}}
-				</div>
-				<hr class="grid_9 alpha omega" style="margin-top: 10px; margin-bottom: 10px;"/>
-			</div>
+		<div class="form-div">
+			{% include "wict/criteria_form.html" with form=evaluation only %}
+		</div>
 		<div class="grid_9 alpha omega">
 		<input type="submit" value="{% trans "Salvar" %}"/>
 		</div>

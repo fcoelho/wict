@@ -162,3 +162,8 @@ footer {
 footer p {
 	text-align: center;
 }
+
+.form-div hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
