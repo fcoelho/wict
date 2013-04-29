@@ -153,3 +153,12 @@ fieldset {
 	border: 1px solid #eaa;
 	border-radius: 5px;
 }
+
+footer {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+footer p {
+	text-align: center;
+}

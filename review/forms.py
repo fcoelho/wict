@@ -1,19 +1,16 @@
 # coding: utf-8
 
 from django import forms
-from django.utils.safestring import mark_safe
+from django.forms.models import inlineformset_factory
+from django.utils.translation import ugettext_lazy as _
 
-from .models import Review, Criteria
+from .models import Review, Criteria, Evaluation
 
 class ReviewForm(forms.ModelForm):
 	class Meta:
 		model = Review
 
 class CriteriaForm(forms.ModelForm):
-	def __init__(self, *args, **kwargs):
-		super(CriteriaForm, self).__init__(*args, **kwargs)
-		self.fields['value'].empty_label = None
-
 	class Meta:
 		model = Criteria
 		widgets = {
@@ -23,12 +20,14 @@ class CriteriaForm(forms.ModelForm):
 			'value': forms.RadioSelect,
 			'comment': forms.Textarea(
 				attrs={
-					'placeholder': 'Comentários...',
+					'placeholder': _(u'Comentários...'),
 					'rows': '5',
 				}
 			),
 		}
 
-from django.forms.models import inlineformset_factory
+class EvaluationForm(CriteriaForm):
+	class Meta(CriteriaForm.Meta):
+		model = Evaluation
 
 ReviewFormSet = inlineformset_factory(Review, Criteria, form=CriteriaForm, can_delete=False, extra=0)

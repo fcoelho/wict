@@ -4,7 +4,7 @@ from django.http import HttpResponseForbidden
 from website.decorators import require_reviewer
 
 from .models import Review
-from .forms import ReviewFormSet
+from .forms import ReviewFormSet, EvaluationForm
 
 @require_reviewer
 def reviews(request):
@@ -22,11 +22,20 @@ def display_review(request, review_id):
 	
 	if request.method == 'POST':
 		formset = ReviewFormSet(request.POST, instance=review)
-		if formset.is_valid():
+		evaluation = EvaluationForm(request.POST, instance=review.evaluation)
+		if formset.is_valid() and evaluation.is_valid():
 			formset.save()
+			evaluation.save()
 			return redirect('website_reviews')
 	else:
 		formset = ReviewFormSet(instance=review)
+		evaluation = EvaluationForm(instance=review.evaluation)
 
-	return render(request, 'wict/display_review.html', {'review': review, 'formset': formset})
+	return render(request, 'wict/display_review.html',
+		{
+			'review': review,
+			'formset': formset,
+			'evaluation': evaluation
+		}
+	)
 

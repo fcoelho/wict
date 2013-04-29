@@ -4,6 +4,8 @@ import logging
 
 from django.db import models
 from django.conf import settings
+from django.utils.translation import ugettext_lazy
+from django.utils.translation import ugettext as _
 
 from submission.models import Article
 
@@ -28,33 +30,52 @@ class Review(models.Model):
 		# if the model was just created, add the new criteria instances
 		if created:
 			attrs = [
-				('Originalidade', ''),
-				('Qualidade', 'Qualidade técnica, metodológica, analítica'),
-				('Relevância', ''),
-				('Apresentação', 'Legibilidade, clareza da apresentação, organização das ideias'),
+				(_(u'Originalidade'), u''),
+				(_(u'Qualidade'), _(u'Qualidade técnica, metodológica, analítica')),
+				(_(u'Relevância'), u''),
+				(_(u'Apresentação'), _(u'Legibilidade, clareza da apresentação, organização das ideias')),
+				(_(u'Confiança do revisor'), _(u'Quão confiante você está sobre a avaliação deste artigo?')),
 			]
 
 			for attr in attrs:
 				c = Criteria(review=self, attribute=attr[0], help_text=attr[1])
 				c.save()
+
+			e = Evaluation(review=self, attribute=_(u'Avaliação'), help_text=u'')
+			e.save()
 	
 	def reviewed(self):
-		criteria = self.criteria_set
-		return criteria.filter(value__gt=0).count() != 0
+		evaluation = self.evaluation
+		return evaluation.value > 0
 
+class CriteriaBase(models.Model):
+	class Meta:
+		abstract = True
 
-class Criteria(models.Model):
+	attribute = models.CharField(max_length=64)
+	comment = models.TextField(blank=True)
+	help_text = models.CharField(max_length=255, blank=True)
+
+class Criteria(CriteriaBase):
 	VALUES = (
-		(1, 'Fraco'),
-		(2, 'Abaixo da média'),
-		(3, 'Médio'),
-		(4, 'Bom'),
-		(5, 'Excelente')
+		(1, ugettext_lazy(u'Fraco')),
+		(2, ugettext_lazy(u'Abaixo da média')),
+		(3, ugettext_lazy(u'Médio')),
+		(4, ugettext_lazy(u'Bom')),
+		(5, ugettext_lazy(u'Excelente'))
 	)
 
 	review = models.ForeignKey(Review)
-
-	attribute = models.CharField(max_length=64)
 	value = models.IntegerField(default=-1, choices=VALUES)
-	comment = models.TextField(blank=True)
-	help_text = models.CharField(max_length=255, blank=True)
+
+class Evaluation(CriteriaBase):
+	VALUES = (
+		(1, ugettext_lazy(u'Rejeitado')),
+		(2, ugettext_lazy(u'Rejeitado fraco')),
+		(3, ugettext_lazy(u'Neutro')),
+		(4, ugettext_lazy(u'Aprovado fraco')),
+		(5, ugettext_lazy(u'Aprovado'))
+	)
+
+	review = models.OneToOneField(Review)
+	value = models.IntegerField(default=-1, choices=VALUES)

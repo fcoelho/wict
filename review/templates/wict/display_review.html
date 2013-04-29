@@ -1,5 +1,7 @@
 {% extends "wict/index.html" %}
 
+{% load i18n %}
+
 {% block title %}Revisão - {{review.article.title|truncatechars:20}}{% endblock %}
 
 {% block content %}
@@ -33,8 +35,26 @@
 				<hr class="grid_9 alpha omega" style="margin-top: 10px; margin-bottom: 10px;"/>
 			</div>
 		{% endfor %}
+			<div class="form-div">
+				{{evaluation.non_field_errors}}
+				{% for hidden in evaluation.hidden_fields %}
+					{{hidden}}
+				{% endfor %}
+				<p class="grid_9 alpha omega"><strong>{{evaluation.attribute.value}}</strong><p>
+				<div class="grid_7 alpha">
+					{% if evaluation.help_text %}
+						<p class="help-text">{{evaluation.help_text.value}}</p>
+					{% endif %}
+					{{evaluation.comment}}
+				</div>
+				<div class="grid_2 omega radio-values">
+					{{evaluation.value.errors}}
+					{{evaluation.value}}
+				</div>
+				<hr class="grid_9 alpha omega" style="margin-top: 10px; margin-bottom: 10px;"/>
+			</div>
 		<div class="grid_9 alpha omega">
-			<input type="submit"/>
+		<input type="submit" value="{% trans "Salvar" %}"/>
 		</div>
 	</form>
 {% endblock %}
