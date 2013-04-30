@@ -5,9 +5,8 @@
 {% block content %}
 	<form method="post" action="" enctype="multipart/form-data">
 		{% csrf_token %}
-		{% load wict %}
-		{% wict_form form %}
-		{% wict_dynamicformset formset "Autores" %}
+		{% include "wict/wict_form.html" with form=form only %}
+		{% include "wict/wict_dynamicformset.html" with formset=formset legend="Autores" only %}
 		<script>
 			$('#add-form-element').click(function() {
 				cloneFormElement('table.form-row tr:last', 'author_set');

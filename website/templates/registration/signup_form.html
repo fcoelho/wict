@@ -6,8 +6,7 @@
 	<div class="grid_5 push_2">
 		<form method="post" action="{% url "signup_signup" %}">
 			{% csrf_token %}
-			{% load wict %}
-			{% wict_form form %}
+			{% include "wict/wict_form.html" with form=form only %}
 			<input type="submit"/>
 		</form>
 	</div>
