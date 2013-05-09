@@ -44,7 +44,11 @@ class Review(models.Model):
 			e = Evaluation(
 				review=self,
 				attribute=_(u'Avaliação'),
-				help_text=_(u'Dê seu parecer sobre o artigo, e se deve ser aprovado')
+				help_text=_(
+					u'Dê seu parecer sobre o artigo, e se deve ser aprovado.\n'
+					u'Se quiser mandar mensagens específicas para a banca,'
+					u'deixe indicado'
+				)
 			)
 			e.save()
 		else:

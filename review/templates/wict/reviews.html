@@ -5,8 +5,8 @@
 {% block content %}
 	{% if reviews %}
 		<h1>Revisão de trabalhos</h1>
-		<div class="grid_9 alpha omega article">
-			{% for review in reviews %}
+		{% for review in reviews %}
+			<div class="grid_9 alpha omega article">
 				<div class="article-info grid_8 alpha">
 					<h3>{{review.article.title}}</h3>
 					<p><span>Resumo:</span> {{review.article.abstract}}</p>
@@ -27,8 +27,8 @@
 						{% endif %}
 					</a></p>
 				</div>
-			{% endfor %}
-		</div>
+			</div>
+		{% endfor %}
 	{% else %}
 		<h1>Você ainda não tem nenhum artigo para revisar</h1>
 	{% endif %}
