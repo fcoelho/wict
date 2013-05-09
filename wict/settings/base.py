@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from unipath import Path
 
 PROJECT_DIR = Path(__file__).ancestor(3)
@@ -6,7 +8,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+	('Felipe Coelho', 'fcoelho.9@gmail.com'),
+	('Guilherme Gibertoni', 'kuramayoko10@gmail.com'),
+	('Cesar Milano', 'cesar.milano@gmail.com')
 )
 
 MANAGERS = ADMINS
