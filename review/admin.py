@@ -6,10 +6,6 @@ from submission.models import Article
 from .models import Review, Criteria
 
 class ReviewForm(forms.ModelForm):
-	def __init__(self, *args, **kwargs):
-		super(ReviewForm, self).__init__(*args, **kwargs)
-		self.fields['article'].empty_label = None
-
 	class Meta:
 		model = Review
 

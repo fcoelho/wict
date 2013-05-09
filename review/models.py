@@ -41,12 +41,19 @@ class Review(models.Model):
 				c = Criteria(review=self, attribute=attr[0], help_text=attr[1])
 				c.save()
 
-			e = Evaluation(review=self, attribute=_(u'Avaliação'), help_text=u'')
+			e = Evaluation(
+				review=self,
+				attribute=_(u'Avaliação'),
+				help_text=_(u'Dê seu parecer sobre o artigo, e se deve ser aprovado')
+			)
 			e.save()
+		else:
+			# since we're saving a previously created review, we have to
+			# set the article status accordingly
+			pass
 	
 	def reviewed(self):
-		evaluation = self.evaluation
-		return evaluation.value > 0
+		return self.evaluation.value > 0
 
 class CriteriaBase(models.Model):
 	class Meta:
