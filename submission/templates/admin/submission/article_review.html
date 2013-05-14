@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n admin_urls %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url "admin:index" %}">{% trans "Home" %}</a>
+&rsaquo; <a href="{% url "admin:app_list" app_label=app_label %}">{{app_label|capfirst|escape}}</a>
+&rsaquo; <a href="{% url "admin:submission_article_changelist" %}">{{module_name}}</a>
+&rsaquo; {{article.title|truncatewords:"18"}}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+	<div class="module">
+		{% for review in reviews %}
+			<h2>Review</h2>
+			{% for crit in review.criteria_set.all %}
+				<p>{{crit.attribute}}: {{crit.value}}</p>
+			{% endfor %}
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
