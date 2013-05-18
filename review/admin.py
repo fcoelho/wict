@@ -14,7 +14,6 @@ class ReviewAdmin(admin.ModelAdmin):
 		return review.reviewer.get_full_name()
 	def article_title(self, review):
 		return review.article.title
-	
 	def article_count(self, review):
 		return unicode(Review.objects.filter(reviewer=review.reviewer).count())
 

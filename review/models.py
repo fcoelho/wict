@@ -51,6 +51,11 @@ class Review(models.Model):
 				)
 			)
 			e.save()
+
+			# update the status. the author will see the article is now being
+			# reviewed
+			self.article.status = 'ER'
+			self.article.save()
 		else:
 			# since we're saving a previously created review, we have to
 			# set the article status accordingly
