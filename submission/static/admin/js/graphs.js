@@ -1,4 +1,4 @@
-function plotEvaluations(element, data) {
+function plotEvaluations(element, data, avg_text) {
 	var average = 0.0;
 	for (var i=0 ; i<data.length ; ++i)
 		average += data[i];
@@ -26,7 +26,7 @@ function plotEvaluations(element, data) {
 	var xTicksLabels = [];
 	for (var i=1 ; i<=data.length ; ++i)
 		xTicksLabels.push([i, i.toString()]);
-	xTicksLabels.push([data.length + 1, "Average"]);
+	xTicksLabels.push([data.length + 1, avg_text]);
 
 	var yTicksLabels = [];
 	for (var i=1 ; i<=5 ; ++i)
