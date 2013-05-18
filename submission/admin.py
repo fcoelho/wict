@@ -11,6 +11,7 @@ from django.utils.encoding import force_text
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
+from django.contrib import messages
 
 from review.models import Review
 from .models import Article
@@ -41,7 +42,19 @@ class ArticleAdmin(admin.ModelAdmin):
 		reviews = filter(lambda x: x.reviewed(), Review.objects.filter(article=article))
 
 		if request.method == 'POST':
-			return redirect('admin:submission_article_changelist')
+			if 'approved' in request.POST:
+				approved = True
+			elif 'rejected' in request.POST:
+				approved = False
+			else:
+				approved = None
+				messages.warning(request, _('Ação inválida, tente novamente'))
+
+			if approved is not None:
+				article.status = 'AP' if approved else 'RJ'
+				article.save()
+				#todo: enviar email pro usuário avisando que o artigo tá pronto
+				return redirect('admin:submission_article_changelist')
 
 		data_by_criterias = defaultdict(lambda : ([], []))
 		for review in reviews:
