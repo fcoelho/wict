@@ -105,6 +105,9 @@ class ArticleAdmin(admin.ModelAdmin):
 
 		send_email(template_name, context, to)
 
+	def author_name(self, article):
+		return article.author.full_name
+	author_name.short_description = ugettext_lazy(u'Nome do autor')
 
 	def review(self, article):
 		url = reverse('admin:article_admin_review', args=(article.pk,))
@@ -112,7 +115,7 @@ class ArticleAdmin(admin.ModelAdmin):
 	review.allow_tags = True
 	review.short_description = ugettext_lazy('Avaliar')
 
-	list_display = ('author', 'title', 'topic', 'status', 'review')
+	list_display = ('author_name', 'title', 'topic', 'status', 'review')
 
 admin.site.register(Article, ArticleAdmin)
 
