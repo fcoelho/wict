@@ -1,0 +1,13 @@
+-- title=subject
+
+[Semcomp 16] VII WICT - Artigo aceito
+
+-- title=txt
+
+Prezado participante,
+
+Gostaríamos de informar que o seguinte artigo foi aceito para publicação
+no VII WICT:
+
+	{{title}}
+

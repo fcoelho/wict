@@ -1,0 +1,12 @@
+-- title=subject
+
+[Semcomp 16] VII WICT - Artigo não aceito
+
+-- title=txt
+
+Prezado participante,
+
+Gostaríamos de informar que, infelizmente, o artigo abaixo não foi
+aceito para publicação no VII WICT:
+
+	{{title}}
