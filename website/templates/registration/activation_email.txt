@@ -1,3 +1,9 @@
+-- title=subject
+
+Ativação da conta do VI Workshop de Iniciação Científica e Tecnológica
+
+-- title=txt
+
 Obrigado por se registrar no VI Workshop de Iniciação Científica e Tecnológica!
 
 Para terminar seu cadastro, acesse o link abaixo.
