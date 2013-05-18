@@ -1,10 +1,11 @@
 # coding: utf-8
 
+from collections import defaultdict
 from functools import update_wrapper
 
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
 from django.utils.text import capfirst
@@ -37,7 +38,20 @@ class ArticleAdmin(admin.ModelAdmin):
 
 	def review_view(self, request, object_id):
 		article = get_object_or_404(Article, pk=object_id)
-		reviews = Review.objects.filter(article=article)
+		reviews = filter(lambda x: x.reviewed(), Review.objects.filter(article=article))
+
+		if request.method == 'POST':
+			return redirect('admin:submission_article_changelist')
+
+		data_by_criterias = defaultdict(lambda : ([], []))
+		for review in reviews:
+			criterias = review.criteria_set.all()
+			for crit in criterias:
+				data_by_criterias[crit.attribute][0].append(crit.value)
+				data_by_criterias[crit.attribute][1].append(crit.comment)
+			ev = review.evaluation
+			data_by_criterias[ev.attribute][0].append(ev.value)
+			data_by_criterias[ev.attribute][1].append(ev.comment)
 
 		opts = Article._meta
 
@@ -47,6 +61,9 @@ class ArticleAdmin(admin.ModelAdmin):
 			'app_label': opts.app_label,
 			'article': article,
 			'reviews': reviews,
+			# templates have trouble reading defaultdicts because the syntax
+			# for attribute lookup and method call is the same
+			'data_by_criterias': dict(data_by_criterias),
 		}
 
 		return TemplateResponse(

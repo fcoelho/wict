@@ -11,15 +11,80 @@
 </div>
 {% endblock %}
 
+{% block extrahead %}
+<link rel="stylesheet" href="{{STATIC_URL}}admin/css/forms.css" type="text/css">
+<link rel="stylesheet" href="{{STATIC_URL}}admin/css/bootstrap.min.css" type="text/css">
+<style type="text/css" media="screen">
+	.graph { height: 100px; }
+	.center { text-align: center; }
+	fieldset {
+		border: solid 1px lightgray;
+	}
+	/* 1px less to account for the module border */
+	fieldset.module .span6 { width: 459px; }
+</style>
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="{{STATIC_URL}}admin/js/core.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}admin/js/jquery.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}admin/js/actions.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}admin/js/collapse.js"></script>
+{% endblock %}
+
 {% block content %}
 <div id="content-main">
-	<div class="module">
-		{% for review in reviews %}
-			<h2>Review</h2>
-			{% for crit in review.criteria_set.all %}
-				<p>{{crit.attribute}}: {{crit.value}}</p>
+	<div class="inner-container">
+		<div class="row">
+			{% for crit in data_by_criterias %}
+				<div class="span2 graph" id="graph-{{crit|slugify}}"></div>
 			{% endfor %}
-		{% endfor %}
+			{% for crit in data_by_criterias %}
+				<div class="center span2">{{crit}}</div>
+			{% endfor %}
+		</div>
+		<fieldset class="module align collapse">
+			<h2>Avaliações</h2>
+			{% for name,values in data_by_criterias.items %}
+				{% if forloop.counter0|divisibleby:"2" %}
+				<div class="row">
+				{% endif %}
+					<div class="span6">
+						<h2>{{name}}</h2>
+						{% for comment in values.1 %}
+							<fieldset>
+								<legend>{{forloop.counter}}</legend>
+								{% if comment %}
+									<p>{{comment}}</p>
+								{% else %}
+									<p><span class="help">(vazio)</span></p>
+								{% endif %}
+							</fieldset>
+						{% endfor %}
+					</div>
+				{% if forloop.counter|divisibleby:"2" %}
+				</div>
+				{% endif %}
+			{% endfor %}
+		</fieldset>
+		<div class="submit-row">
+			<form enctype="multipart/form-data" action="{% url "admin:article_admin_review" article.pk %}" method="post">
+				{% csrf_token %}
+				<input type="submit" value="Aprovar" class="default" name="approve">
+				<input type="submit" value="Reprovar" name="reject">
+			</form>
+		</div>
 	</div>
 </div>
+{% endblock %}
+
+{% block footer %}
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js" type="text/javascript"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8/jquery.flot.min.js" type="text/javascript"></script>
+	<script src="{{STATIC_URL}}admin/js/graphs.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		{% for name,values in data_by_criterias.items %}
+			plotEvaluations("#graph-{{name|slugify}}", {{values.0}});
+		{% endfor %}
+	</script>
 {% endblock %}
