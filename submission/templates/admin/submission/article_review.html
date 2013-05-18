@@ -44,7 +44,7 @@
 			{% endfor %}
 		</div>
 		<fieldset class="module align collapse">
-			<h2>Avaliações</h2>
+			<h2>{% trans "Comentários" %}</h2>
 			{% for name,values in data_by_criterias.items %}
 				{% if forloop.counter0|divisibleby:"2" %}
 				<div class="row">
