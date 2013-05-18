@@ -3,17 +3,20 @@
 from collections import defaultdict
 from functools import update_wrapper
 
+from django.conf import settings
 from django.contrib import admin
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-from django.contrib import messages
 
 from review.models import Review
+from website.utils import send_email
 from .models import Article
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -55,7 +58,9 @@ class ArticleAdmin(admin.ModelAdmin):
 			if approved is not None:
 				article.status = 'AP' if approved else 'RJ'
 				article.save()
-				#todo: enviar email pro usuário avisando que o artigo tá pronto
+
+				self.send_review_email(article, approved)
+
 				return redirect('admin:submission_article_changelist')
 
 		data_by_criterias = defaultdict(lambda : ([], []))
@@ -86,6 +91,19 @@ class ArticleAdmin(admin.ModelAdmin):
 			'admin/submission/article_review.html',
 			context,
 		)
+
+	def send_review_email(self, article, approved):
+		type_str = 'approved' if approved else 'rejected'
+		template_name = 'admin/submission/%s_email.txt' % type_str
+
+		context = {
+			'title': article.title
+		}
+
+		to = article.author.email
+
+		send_email(template_name, context, to)
+
 
 	def review(self, article):
 		url = reverse('admin:article_admin_review', args=(article.pk,))
