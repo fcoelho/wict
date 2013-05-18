@@ -42,13 +42,15 @@ class ArticleAdmin(admin.ModelAdmin):
 		reviews = filter(lambda x: x.reviewed(), Review.objects.filter(article=article))
 
 		if request.method == 'POST':
-			if 'approved' in request.POST:
+			if 'approve' in request.POST:
+				messages.success(request, _(u'Artigo aprovado'))
 				approved = True
-			elif 'rejected' in request.POST:
+			elif 'reject' in request.POST:
+				messages.success(request, _(u'Artigo rejeitado'))
 				approved = False
 			else:
 				approved = None
-				messages.warning(request, _('Ação inválida, tente novamente'))
+				messages.warning(request, _(u'Ação inválida, tente novamente'))
 
 			if approved is not None:
 				article.status = 'AP' if approved else 'RJ'
