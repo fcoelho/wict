@@ -15,12 +15,15 @@ logger = logging.getLogger(__name__)
 class Review(models.Model):
 	reviewer = models.ForeignKey(
 		'website.WictUser',
-		limit_choices_to={'is_reviewer': True}
+		limit_choices_to={'is_reviewer': True},
+		verbose_name=ugettext_lazy(u'Revisor')
 	)
-	article = models.ForeignKey('submission.Article')
+	article = models.ForeignKey('submission.Article', verbose_name=ugettext_lazy(u'Artigo'))
 
 	class Meta:
 		unique_together = ('reviewer', 'article')
+		verbose_name = ugettext_lazy(u'revisão')
+		verbose_name_plural = ugettext_lazy(u'revisões')
 
 	def save(self, *args, **kwargs):
 		created = not self.pk
@@ -64,16 +67,20 @@ class Review(models.Model):
 	def reviewed(self):
 		return self.evaluation.value > 0
 
+	def __unicode__(self):
+		return self.reviewer.full_name + u':' + self.article.author.full_name
+
 class CriteriaBase(models.Model):
 	class Meta:
 		abstract = True
 
-	attribute = models.CharField(max_length=64)
-	comment = models.TextField(blank=True)
-	help_text = models.CharField(max_length=255, blank=True)
+	attribute = models.CharField(ugettext_lazy(u'Atributo'), max_length=64)
+	comment = models.TextField(ugettext_lazy(u'Comentário'), blank=True)
+	help_text = models.CharField(ugettext_lazy(u'Texto de ajuda'), max_length=255, blank=True)
 
 class Criteria(CriteriaBase):
 	VALUES = (
+		(-1, ugettext_lazy(u'N/D')),
 		(1, ugettext_lazy(u'Fraco')),
 		(2, ugettext_lazy(u'Abaixo da média')),
 		(3, ugettext_lazy(u'Médio')),
@@ -81,11 +88,16 @@ class Criteria(CriteriaBase):
 		(5, ugettext_lazy(u'Excelente'))
 	)
 
-	review = models.ForeignKey(Review)
-	value = models.IntegerField(default=-1, choices=VALUES)
+	review = models.ForeignKey(Review, verbose_name=ugettext_lazy(u'Revisão'))
+	value = models.IntegerField(ugettext_lazy(u'Valor'), default=-1, choices=VALUES)
+
+	class Meta:
+		verbose_name = ugettext_lazy(u'critério de avaliação')
+		verbose_name_plural = ugettext_lazy(u'critérios de avaliação')
 
 class Evaluation(CriteriaBase):
 	VALUES = (
+		(-1, ugettext_lazy(u'N/D')),
 		(1, ugettext_lazy(u'Rejeitado')),
 		(2, ugettext_lazy(u'Rejeitado fraco')),
 		(3, ugettext_lazy(u'Neutro')),
@@ -93,5 +105,9 @@ class Evaluation(CriteriaBase):
 		(5, ugettext_lazy(u'Aprovado'))
 	)
 
-	review = models.OneToOneField(Review)
-	value = models.IntegerField(default=-1, choices=VALUES)
+	review = models.OneToOneField(Review, verbose_name=ugettext_lazy(u'Revisão'))
+	value = models.IntegerField(ugettext_lazy(u'Valor'), default=-1, choices=VALUES)
+
+	class Meta:
+		verbose_name = ugettext_lazy(u'avaliação final')
+		verbose_name_plural = ugettext_lazy(u'avaliações finais')

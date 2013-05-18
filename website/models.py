@@ -40,13 +40,13 @@ class WictUser(AbstractBaseUser, PermissionsMixin):
 		db_index=True
 	)
 
-	full_name = models.CharField(max_length=255)
-	is_reviewer = models.BooleanField(default=False)
+	full_name = models.CharField(_(u'Nome completo'), max_length=255)
+	is_reviewer = models.BooleanField(_(u'Revisor'), default=False)
 
 	# django-admin fields
-	is_active = models.BooleanField(default=True)
-	is_admin = models.BooleanField(default=False)
-	is_staff = models.BooleanField(default=False)
+	is_active = models.BooleanField(default=True, verbose_name=_(u'Está ativo'))
+	is_admin = models.BooleanField(default=False, verbose_name=_(u'É administrador'))
+	is_staff = models.BooleanField(default=False, verbose_name=_(u'É funcionário'))
 
 	objects = WictUserManager()
 
@@ -61,4 +61,8 @@ class WictUser(AbstractBaseUser, PermissionsMixin):
 	
 	def __unicode__(self):
 		return self.email
+
+	class Meta:
+		verbose_name = _(u'usuário')
+		verbose_name_plural = _(u'usuários')
 
