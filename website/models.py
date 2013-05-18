@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
@@ -6,11 +8,11 @@ from django.utils.translation import ugettext_lazy as _
 class WictUserManager(BaseUserManager):
 	def create_user(self, email, full_name, password=None):
 		if not email:
-			msg = _('Users must have an email address')
+			msg = _(u'Usuários devem ter um endereço de e-email')
 			raise ValueError(msg)
 
 		if not full_name:
-			msg = _('Users must have a name')
+			msg = _(u'Usuários devem ter um nome')
 			raise ValueError(msg)
 
 		user = self.model(
@@ -32,7 +34,7 @@ class WictUserManager(BaseUserManager):
 
 class WictUser(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(
-		_('Email address'),
+		_(u'Endereço de e-mail'),
 		max_length=254,
 		unique=True,
 		db_index=True
