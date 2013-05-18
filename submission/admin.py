@@ -15,8 +15,9 @@ from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 
+from signup.utils import send_email
+
 from review.models import Review
-from website.utils import send_email
 from .models import Article
 
 class ArticleAdmin(admin.ModelAdmin):
