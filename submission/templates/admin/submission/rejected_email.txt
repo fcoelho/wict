@@ -10,3 +10,10 @@ Gostaríamos de informar que, infelizmente, o artigo abaixo não foi
 aceito para publicação no VII WICT:
 
 	{{title}}
+
+Para ver os comentários sobre seu artigo, clique no link abaixo:
+
+	{{full_url}}
+
+Atenciosamente,
+VII Workshop de Iniciação Científica

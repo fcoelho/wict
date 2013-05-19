@@ -13,4 +13,4 @@ Para terminar seu cadastro, acesse o link abaixo.
 O link permanecerá válido por {{activation_days}} dias.
 
 Atenciosamente,
-VI Workshop de Iniciação Científica
+VII Workshop de Iniciação Científica

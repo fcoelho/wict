@@ -45,24 +45,8 @@ class ArticleAdmin(admin.ModelAdmin):
 		article = get_object_or_404(Article, pk=object_id)
 		reviews = filter(lambda x: x.reviewed(), Review.objects.filter(article=article))
 
-		if request.method == 'POST':
-			if 'approve' in request.POST:
-				messages.success(request, _(u'Artigo aprovado'))
-				approved = True
-			elif 'reject' in request.POST:
-				messages.success(request, _(u'Artigo rejeitado'))
-				approved = False
-			else:
-				approved = None
-				messages.warning(request, _(u'Ação inválida, tente novamente'))
-
-			if approved is not None:
-				article.status = 'AP' if approved else 'RJ'
-				article.save()
-
-				self.send_review_email(article, approved)
-
-				return redirect('admin:submission_article_changelist')
+		if self.send_review_email(request, article):
+			return redirect('admin:submission_article_changelist')
 
 		if not reviews:
 			messages.warning(request, _(u'Este artigo ainda não tem revisões o suficiente para ser avaliado'))
@@ -87,17 +71,37 @@ class ArticleAdmin(admin.ModelAdmin):
 			context,
 		)
 
-	def send_review_email(self, article, approved):
-		type_str = 'approved' if approved else 'rejected'
-		template_name = 'admin/submission/%s_email.txt' % type_str
+	def send_review_email(self, request, article):
+		if request.method == 'POST':
+			if 'approve' in request.POST:
+				messages.success(request, _(u'Artigo aprovado'))
+				approved = True
+			elif 'reject' in request.POST:
+				messages.success(request, _(u'Artigo rejeitado'))
+				approved = False
+			else:
+				approved = None
+				messages.warning(request, _(u'Ação inválida, tente novamente'))
 
-		context = {
-			'title': article.title
-		}
+			if approved is not None:
+				article.status = 'AP' if approved else 'RJ'
+				article.save()
 
-		to = article.author.email
+				type_str = 'approved' if approved else 'rejected'
+				template_name = 'admin/submission/%s_email.txt' % type_str
 
-		send_email(template_name, context, to)
+				context = {
+					'title': article.title,
+					'full_url': request.build_absolute_uri(
+						location=reverse('website_submission_comments'))
+				}
+
+				to = article.author.email
+
+				send_email(template_name, context, to)
+
+				return True
+		return False
 
 	def author_name(self, article):
 		return article.author.full_name
