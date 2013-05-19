@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from collections import defaultdict
+from collections import OrderedDict
 from functools import update_wrapper
 
 from django.conf import settings
@@ -68,13 +68,17 @@ class ArticleAdmin(admin.ModelAdmin):
 			messages.warning(request, _(u'Este artigo ainda não tem revisões o suficiente para ser avaliado'))
 			return redirect('admin:submission_article_changelist')
 
-		data_by_criterias = defaultdict(lambda : ([], []))
+		data_by_criterias = OrderedDict()
 		for review in reviews:
 			criterias = review.criteria_set.all()
 			for crit in criterias:
+				if crit.attribute not in data_by_criterias:
+					data_by_criterias[crit.attribute] = [[], []]
 				data_by_criterias[crit.attribute][0].append(crit.value)
 				data_by_criterias[crit.attribute][1].append(crit.comment)
 			ev = review.evaluation
+			if ev.attribute not in data_by_criterias:
+				data_by_criterias[ev.attribute] = [[], []]
 			data_by_criterias[ev.attribute][0].append(ev.value)
 			data_by_criterias[ev.attribute][1].append(ev.comment)
 
@@ -86,9 +90,7 @@ class ArticleAdmin(admin.ModelAdmin):
 			'app_label': opts.app_label,
 			'article': article,
 			'reviews': reviews,
-			# templates have trouble reading defaultdicts because the syntax
-			# for attribute lookup and method call is the same
-			'data_by_criterias': dict(data_by_criterias),
+			'data_by_criterias': data_by_criterias,
 		}
 
 		return TemplateResponse(
