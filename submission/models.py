@@ -59,7 +59,9 @@ class Article(models.Model):
 	def __unicode__(self):
 		return self.title
 
+	def reviewed(self):
+		return self.status == 'AP' or self.status == 'RJ'
+
 	class Meta:
 		verbose_name = _('artigo')
 		verbose_name_plural = _('artigos')
-

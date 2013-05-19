@@ -20,6 +20,11 @@ urlpatterns = patterns('',
 		'^delete/$',
 		'submission.views.delete_submission',
 		name='website_submission_delete'
+	),
+	url(
+		'^comments/$',
+		'submission.views.show_comments',
+		name='website_submission_comments'
 	)
 )
 

@@ -1,6 +1,5 @@
 # coding: utf-8
 
-from collections import OrderedDict
 from functools import update_wrapper
 
 from django.conf import settings
@@ -18,6 +17,7 @@ from django.utils.translation import ugettext_lazy
 from signup.utils import send_email
 
 from review.models import Review
+from website.utils import group_review_criteria
 from .models import Article
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -68,19 +68,7 @@ class ArticleAdmin(admin.ModelAdmin):
 			messages.warning(request, _(u'Este artigo ainda não tem revisões o suficiente para ser avaliado'))
 			return redirect('admin:submission_article_changelist')
 
-		data_by_criterias = OrderedDict()
-		for review in reviews:
-			criterias = review.criteria_set.all()
-			for crit in criterias:
-				if crit.attribute not in data_by_criterias:
-					data_by_criterias[crit.attribute] = [[], []]
-				data_by_criterias[crit.attribute][0].append(crit.value)
-				data_by_criterias[crit.attribute][1].append(crit.comment)
-			ev = review.evaluation
-			if ev.attribute not in data_by_criterias:
-				data_by_criterias[ev.attribute] = [[], []]
-			data_by_criterias[ev.attribute][0].append(ev.value)
-			data_by_criterias[ev.attribute][1].append(ev.comment)
+		data_by_criterias = group_review_criteria(reviews)
 
 		opts = Article._meta
 

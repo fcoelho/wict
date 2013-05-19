@@ -1,0 +1,16 @@
+{% extends "wict/index.html" %}
+
+{% block content %}
+	<div class="grid_9 alpha omega">
+		<h2>Comentários</h2>
+		{% for key,value in data_by_criterias.items %}
+			<h3>{{key}}</h3>
+			{% for review in value.1 %}
+				<fieldset>
+					<legend>{{forloop.counter}}</legend>
+					<p>{{review}}</p>
+				</fieldset>
+			{% endfor %}
+		{% endfor %}
+	</div>
+{% endblock %}

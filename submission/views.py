@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 
 from website.decorators import require_author
+from website.utils import group_review_criteria
+from review.models import Review
 from .models import Article, Author
 from .forms import ArticleForm, AuthorForm, AuthorFormSet
 
@@ -73,10 +75,28 @@ def edit_submission(request):
 @require_author
 def delete_submission(request):
 	try:
-		article = Article.objects.get(user=request.user)
+		article = Article.objects.get(author=request.user)
 	except Article.DoesNotExist:
 		return redirect('website_submission')
 	
 	article.delete()
 	return redirect('website_submission')
 	
+@require_author
+def show_comments(request):
+	try:
+		article = Article.objects.get(author=request.user)
+	except Article.DoesNotExist:
+		return redirect('website_submission')
+
+	reviews = Review.objects.filter(article=article)
+	reviews = filter(lambda x: x.reviewed(), reviews)
+	data_by_criterias = group_review_criteria(reviews)
+
+	context = {
+		'submission_active': True,
+		'data_by_criterias': data_by_criterias,
+	}
+
+	return render(request, 'wict/comments_submission.html', context)
+
