@@ -1,9 +1,6 @@
-syntax: glob
-base.sqlite3
-*.pyc
-*.swp
-*.swo
-FILES/*
-env/*
-media/*
+^base.sqlite3
+.*\.py[co]$
+.*\.sw[po]$
+^env
+^media
 .DS_Store

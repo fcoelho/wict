@@ -64,6 +64,10 @@ class ArticleAdmin(admin.ModelAdmin):
 
 				return redirect('admin:submission_article_changelist')
 
+		if not reviews:
+			messages.warning(request, _(u'Este artigo ainda não tem revisões o suficiente para ser avaliado'))
+			return redirect('admin:submission_article_changelist')
+
 		data_by_criterias = defaultdict(lambda : ([], []))
 		for review in reviews:
 			criterias = review.criteria_set.all()
@@ -109,13 +113,19 @@ class ArticleAdmin(admin.ModelAdmin):
 		return article.author.full_name
 	author_name.short_description = ugettext_lazy(u'Nome do autor')
 
+	def completed(self, article):
+		reviews = Review.objects.filter(article=article)
+		evaluated = filter(lambda x: x.reviewed(), reviews)
+		return u'%i/%i' % (len(evaluated), len(reviews))
+	completed.short_description = ugettext_lazy(u'Revisões completadas')
+
 	def review(self, article):
 		url = reverse('admin:article_admin_review', args=(article.pk,))
 		return _('<a href="%s">Avaliar</a>') % url
 	review.allow_tags = True
 	review.short_description = ugettext_lazy('Avaliar')
 
-	list_display = ('author_name', 'title', 'topic', 'status', 'review')
+	list_display = ('author_name', 'title', 'topic', 'status', 'completed', 'review')
 
 admin.site.register(Article, ArticleAdmin)
 
