@@ -80,7 +80,6 @@ class CriteriaBase(models.Model):
 
 class Criteria(CriteriaBase):
 	VALUES = (
-		(-1, ugettext_lazy(u'N/D')),
 		(1, ugettext_lazy(u'Fraco')),
 		(2, ugettext_lazy(u'Abaixo da média')),
 		(3, ugettext_lazy(u'Médio')),
@@ -97,7 +96,6 @@ class Criteria(CriteriaBase):
 
 class Evaluation(CriteriaBase):
 	VALUES = (
-		(-1, ugettext_lazy(u'N/D')),
 		(1, ugettext_lazy(u'Rejeitado')),
 		(2, ugettext_lazy(u'Rejeitado fraco')),
 		(3, ugettext_lazy(u'Neutro')),
