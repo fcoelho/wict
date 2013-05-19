@@ -90,12 +90,10 @@ th {
 .form-row span {
 	float: right;
 }
-.form-errors ul {
-	margin: 0;
-}
 .form-errors li {
 	list-style-type: none;
-	margin-left: 0;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 .form-error {
 	border: 1px solid #FF8B8B;
@@ -113,6 +111,21 @@ th {
 fieldset {
 	border: solid 1px #555;
 	padding: 10px;
+}
+ul.messages li {
+	list-style-type: none;
+	margin-left: 10px;
+	margin-right: 10px;
+	border-radius: 4px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.messages .message-info {
+	border: 1px solid #B8C9E6;
+	color: #000041;
+	background-color: #A7B7D1;
 }
 .article {
 	border: solid 1px #AAA;

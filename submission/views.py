@@ -1,4 +1,8 @@
+# coding: utf-8
+
+from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.utils.translation import ugettext as _
 
 from website.decorators import require_author
 from website.utils import group_review_criteria
@@ -91,6 +95,10 @@ def show_comments(request):
 
 	reviews = Review.objects.filter(article=article)
 	reviews = filter(lambda x: x.reviewed(), reviews)
+	if not reviews:
+		messages.info(request, _(u'Você ainda não pode ver os comentários'))
+		return redirect('website_submission')
+
 	data_by_criterias = group_review_criteria(reviews)
 
 	context = {
