@@ -1,0 +1,17 @@
+-- title=subject
+
+[VII WICT] Artigos prontos para revisão
+
+-- title=txt
+
+Prezado revisor,
+
+Já se encontram disponíveis os artigos do VII WICT que dependem de sua revisão.
+Para revisá-los, acesse o endereço abaixo:
+
+	{{full_url}}
+
+A data limite para a entrega dos artigos revisados é XX/XX/2013.
+
+Atenciosamente,
+VII Workshop de Iniciação Científica
